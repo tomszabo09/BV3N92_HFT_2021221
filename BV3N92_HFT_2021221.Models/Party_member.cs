@@ -12,15 +12,19 @@ namespace BV3N92_HFT_2021221.Models
     public class Party_Member
     {
         [Key]
-        public int MemberID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int MemberID {get; set;}
+
+        [ForeignKey(nameof(Party))]
+        public string PartyName { get; set; }
 
         [Range(18,int.MaxValue)]
         public int Age { get; set; }
 
         [MaxLength(50)]
         public string Last_Name { get; set; }
-
+        
         [NotMapped]
-        public virtual Party Party { get; set; } //navigation property
+        public virtual Party Party { get; set; }
     }
 }

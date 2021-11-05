@@ -39,13 +39,13 @@ namespace BV3N92_HFT_2021221.Data
                 .HasForeignKey(partymembers => partymembers.PartyName);
             });
 
-            Parliament ger = new Parliament() { ParliamentName = "Reichstag", Ruling_Party = "fp" };
-            Parliament eng = new Parliament() { ParliamentName = "House of Commons", Ruling_Party = "dp" };
-            Parliament hun = new Parliament() { ParliamentName = "Országház", Ruling_Party = "cp" };
+            Parliament ger = new Parliament() { ParliamentID = 1, ParliamentName = "Reichstag", Ruling_Party = "Conservative Party", PartyID = 2 };
+            Parliament eng = new Parliament() { ParliamentID = 2, ParliamentName = "House of Commons", Ruling_Party = "Socialist Party", PartyID = 1 };
+            Parliament hun = new Parliament() { ParliamentID = 3, ParliamentName = "Országház", Ruling_Party = "Nationalist Party", PartyID = 3 };
 
-            Party left = new Party() { ParliamentName = eng.ParliamentName, PartyName = "Socialist Party", Ideology = Ideologies.Socialist };
-            Party center = new Party() { ParliamentName = ger.ParliamentName, PartyName = "Conservative Party", Ideology = Ideologies.Conservative };
-            Party right = new Party() { ParliamentName = hun.ParliamentName, PartyName = "Nationalist Party", Ideology = Ideologies.Nationalist };
+            Party left = new Party() { PartyID = 1, ParliamentName = eng.ParliamentName, ParliamentID = eng.ParliamentID, PartyName = "Socialist Party", Ideology = Ideologies.Socialist };
+            Party center = new Party() { PartyID = 2, ParliamentName = ger.ParliamentName, ParliamentID = ger.ParliamentID, PartyName = "Conservative Party", Ideology = Ideologies.Conservative };
+            Party right = new Party() { PartyID = 3, ParliamentName = hun.ParliamentName, ParliamentID = hun.ParliamentID, PartyName = "Nationalist Party", Ideology = Ideologies.Nationalist };
 
             Random r = new Random();
             var members = new List<Party_Member>()

@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace BV3N92_HFT_2021221.Models
 {
+    public enum Ideologies
+    {
+        Socialist, Conservative, Nationalist
+    }
+
     [Table("Parties")]
     public class Party
     {
@@ -19,7 +24,7 @@ namespace BV3N92_HFT_2021221.Models
 
         [MaxLength(20)]
         [Required]
-        public string Ideology { get; set; }
+        public Ideologies Ideology { get; set; }
 
         [NotMapped]
         public virtual ICollection<Party_Member> PartyMembers { get; set; }

@@ -17,6 +17,11 @@ namespace BV3N92_HFT_2021221.Models
     public class Party
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PartyID { get; set; }
+        
+        [MaxLength(50)]
+        [Required]
         public string PartyName { get; set; }
 
         [ForeignKey(nameof(Parliament))]

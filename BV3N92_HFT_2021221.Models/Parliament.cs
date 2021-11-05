@@ -9,7 +9,11 @@ namespace BV3N92_HFT_2021221.Models
     public class Parliament
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        
         [Required]
+        [MaxLength(30)]
         public string ParliamentName { get; set; }
 
         [ForeignKey(nameof(Party))]

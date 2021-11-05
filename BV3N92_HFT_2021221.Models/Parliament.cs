@@ -10,13 +10,16 @@ namespace BV3N92_HFT_2021221.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int ParliamentID { get; set; }
         
-        [Required]
         [MaxLength(30)]
+        [Required]
         public string ParliamentName { get; set; }
 
         [ForeignKey(nameof(Party))]
+        public int PartyID { get; set; }
+
+        [Required]
         public string Ruling_Party { get; set; }
 
         [NotMapped]

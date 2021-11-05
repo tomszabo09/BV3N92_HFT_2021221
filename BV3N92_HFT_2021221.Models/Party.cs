@@ -14,17 +14,15 @@ namespace BV3N92_HFT_2021221.Models
         [Key]
         public string PartyName { get; set; }
 
-        //[ForeignKey(nameof(Party_Member))]
-        //public int Member_ID { get; set; }
-
         [ForeignKey(nameof(Parliament))]
         public string ParliamentName { get; set; }
 
         [MaxLength(20)]
+        [Required]
         public string Ideology { get; set; }
 
         [NotMapped]
-        public virtual ICollection<Party_Member> PartyMembers { get; set; } //navigation property
+        public virtual ICollection<Party_Member> PartyMembers { get; set; }
 
         [NotMapped]
         public virtual Parliament Parliament { get; set; }

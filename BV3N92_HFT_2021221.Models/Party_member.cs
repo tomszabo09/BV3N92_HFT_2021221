@@ -22,6 +22,7 @@ namespace BV3N92_HFT_2021221.Models
         public int Age { get; set; }
 
         [MaxLength(50)]
+        [Required]
         public string Last_Name { get; set; }
         
         [NotMapped]

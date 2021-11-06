@@ -36,7 +36,7 @@ namespace BV3N92_HFT_2021221.Models
         public Ideologies Ideology { get; set; }
 
         [NotMapped]
-        public virtual ICollection<Party_Member> PartyMembers { get; set; }
+        public virtual ICollection<PartyMember> PartyMembers { get; set; }
 
         [NotMapped]
         public virtual Parliament Parliament { get; set; }

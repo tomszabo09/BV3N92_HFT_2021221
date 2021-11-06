@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BV3N92_HFT_2021221.Models
 {
     [Table("Party members")]
-    public class Party_Member
+    public class PartyMember
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,7 +26,7 @@ namespace BV3N92_HFT_2021221.Models
 
         [MaxLength(20)]
         [Required]
-        public string Last_Name { get; set; }
+        public string LastName { get; set; }
         
         [NotMapped]
         public virtual Party Party { get; set; }

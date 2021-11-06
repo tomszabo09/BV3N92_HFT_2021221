@@ -9,7 +9,7 @@ namespace BV3N92_HFT_2021221.Data
     {
         public virtual DbSet<Parliament> Parliament { get; set; }
         public virtual DbSet<Party> Parties { get; set; }
-        public virtual DbSet<Party_Member> PartyMembers { get; set; }
+        public virtual DbSet<PartyMember> PartyMembers { get; set; }
         public ParliamentAdministrationDbContext()
         {
             this.Database.EnsureCreated();
@@ -48,31 +48,31 @@ namespace BV3N92_HFT_2021221.Data
             Party right = new Party() { PartyID = 3, ParliamentName = hun.ParliamentName, ParliamentID = hun.ParliamentID, PartyName = "Nationalist Party", Ideology = Ideologies.Nationalist };
 
             Random r = new Random();
-            var members = new List<Party_Member>()
+            var members = new List<PartyMember>()
             {
                 //left
-                new Party_Member() { MemberID = 1, Last_Name = "Stewart", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
-                new Party_Member() { MemberID = 2, Last_Name = "Myers", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
-                new Party_Member() { MemberID = 3, Last_Name = "Norman", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
-                new Party_Member() { MemberID = 4, Last_Name = "Stephenson", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
-                new Party_Member() { MemberID = 5, Last_Name = "Horton", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
+                new PartyMember() { MemberID = 1, LastName = "Stewart", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
+                new PartyMember() { MemberID = 2, LastName = "Myers", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
+                new PartyMember() { MemberID = 3, LastName = "Norman", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
+                new PartyMember() { MemberID = 4, LastName = "Stephenson", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
+                new PartyMember() { MemberID = 5, LastName = "Horton", Age = r.Next(18,70), PartyID = 1, PartyName = left.PartyName },
                 //center
-                new Party_Member() { MemberID = 6, Last_Name = "Weber", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
-                new Party_Member() { MemberID = 7, Last_Name = "von Hohenzoller", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
-                new Party_Member() { MemberID = 8, Last_Name = "von Tirpitz", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
-                new Party_Member() { MemberID = 9, Last_Name = "Schacht", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
-                new Party_Member() { MemberID = 10, Last_Name = "von Reuter", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
+                new PartyMember() { MemberID = 6, LastName = "Weber", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
+                new PartyMember() { MemberID = 7, LastName = "von Hohenzoller", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
+                new PartyMember() { MemberID = 8, LastName = "von Tirpitz", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
+                new PartyMember() { MemberID = 9, LastName = "Schacht", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
+                new PartyMember() { MemberID = 10, LastName = "von Reuter", Age = r.Next(18,70), PartyID = 2, PartyName = center.PartyName },
                 //right
-                new Party_Member() { MemberID = 11, Last_Name = "Vörös", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
-                new Party_Member() { MemberID = 12, Last_Name = "Tóth", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
-                new Party_Member() { MemberID = 13, Last_Name = "Hajdú", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
-                new Party_Member() { MemberID = 14, Last_Name = "Kocsis", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
-                new Party_Member() { MemberID = 15, Last_Name = "Biró", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName }
+                new PartyMember() { MemberID = 11, LastName = "Vörös", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
+                new PartyMember() { MemberID = 12, LastName = "Tóth", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
+                new PartyMember() { MemberID = 13, LastName = "Hajdú", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
+                new PartyMember() { MemberID = 14, LastName = "Kocsis", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName },
+                new PartyMember() { MemberID = 15, LastName = "Biró", Age = r.Next(18,70), PartyID = 3, PartyName = right.PartyName }
             };
 
             modelBuilder.Entity<Parliament>().HasData(ger, eng, hun);
             modelBuilder.Entity<Party>().HasData(left, center, right);
-            modelBuilder.Entity<Party_Member>().HasData(members);
+            modelBuilder.Entity<PartyMember>().HasData(members);
         }
     }
 }

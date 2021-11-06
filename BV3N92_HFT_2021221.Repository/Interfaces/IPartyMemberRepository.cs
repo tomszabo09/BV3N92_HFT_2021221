@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BV3N92_HFT_2021221.Repository
 {
-    public interface IPartyMemberRepository : IRepository<Party_Member>
+    public interface IPartyMemberRepository : IRepository<PartyMember>
     {
         void ChangeMemberName(int memberId, string newName);
 

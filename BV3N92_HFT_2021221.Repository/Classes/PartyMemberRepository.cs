@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BV3N92_HFT_2021221.Repository
 {
-    public class PartyMemberRepository : Repository<Party_Member>, IPartyMemberRepository
+    public class PartyMemberRepository : Repository<PartyMember>, IPartyMemberRepository
     {
         public PartyMemberRepository(DbContext ctx) : base(ctx)
         {
@@ -32,11 +32,11 @@ namespace BV3N92_HFT_2021221.Repository
         public void ChangeMemberName(int memberId, string newName)
         {
             var member = GetOne(memberId);
-            member.Last_Name = newName;
+            member.LastName = newName;
             ctx.SaveChanges();
         }
 
-        public override Party_Member GetOne(int id)
+        public override PartyMember GetOne(int id)
         {
             return GetAll().SingleOrDefault(x => x.MemberID.Equals(id));
         }

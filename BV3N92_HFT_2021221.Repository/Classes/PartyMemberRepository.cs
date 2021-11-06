@@ -15,24 +15,34 @@ namespace BV3N92_HFT_2021221.Repository
 
         }
 
+        public void CreateMember(int memberId, string lastName, int age, int partyId, string partyName)
+        {
+            var _new = new PartyMember() { MemberID = memberId, LastName = lastName, Age = age, PartyID = partyId, PartyName = partyName };
+            ctx.Add(_new);
+            ctx.SaveChanges();
+        }
         public void ChangeMemberAge(int memberId, int newAge)
         {
             var member = GetOne(memberId);
             member.Age = newAge;
             ctx.SaveChanges();
         }
-
         public void ChangeMemberAllegiance(int memberId, int newPartyId)
         {
             var member = GetOne(memberId);
             member.PartyID = newPartyId;
             ctx.SaveChanges();
         }
-
         public void ChangeMemberName(int memberId, string newName)
         {
             var member = GetOne(memberId);
             member.LastName = newName;
+            ctx.SaveChanges();
+        }
+        public void DeleteMember(int memberId)
+        {
+            var todel = GetOne(memberId);
+            ctx.Remove(todel);
             ctx.SaveChanges();
         }
 

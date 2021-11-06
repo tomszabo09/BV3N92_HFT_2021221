@@ -15,17 +15,28 @@ namespace BV3N92_HFT_2021221.Repository
 
         }
 
+        public void CreateParliament(int parliamentId, string name, string rulingParty, int partyId)
+        {
+            var _new = new Parliament() { ParliamentID = parliamentId, ParliamentName = name, Ruling_Party = rulingParty, PartyID = partyId };
+            ctx.Add(_new);
+            ctx.SaveChanges();
+        }
         public void ChangeName(int parliamentId, string newName)
         {
             var parliament = GetOne(parliamentId);
             parliament.ParliamentName = newName;
             ctx.SaveChanges();
         }
-
         public void ReplaceRulingParty(int parliamentId, string newParty)
         {
             var parliament = GetOne(parliamentId);
             parliament.Ruling_Party = newParty;
+            ctx.SaveChanges();
+        }
+        public void DeleteParliament(int parliamentId)
+        {
+            var todel = GetOne(parliamentId);
+            ctx.Remove(todel);
             ctx.SaveChanges();
         }
 

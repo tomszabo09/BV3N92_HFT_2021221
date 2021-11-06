@@ -9,10 +9,14 @@ namespace BV3N92_HFT_2021221.Repository
 {
     public interface IPartyMemberRepository : IRepository<PartyMember>
     {
+        void CreateMember(int memberId, string lastName, int age, int partyId, string partyName);
+
         void ChangeMemberName(int memberId, string newName);
 
         void ChangeMemberAge(int memberId, int newAge);
 
         void ChangeMemberAllegiance(int memberId, int newPartyId);
+
+        void DeleteMember(int memberId);
     }
 }

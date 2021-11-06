@@ -9,8 +9,12 @@ namespace BV3N92_HFT_2021221.Repository
 {
     public interface IParliamentRepository : IRepository<Parliament>
     {
+        void CreateParliament(int parliamentId, string name, string rulingParty, int partyId);
+
         void ChangeName(int parliamentId, string newName);
 
         void ReplaceRulingParty(int parliamentId, string newParty);
+
+        void DeleteParliament(int parliamentId);
     }
 }

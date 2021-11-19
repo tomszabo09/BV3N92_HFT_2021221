@@ -32,7 +32,7 @@ namespace BV3N92_HFT_2021221.Logic
             memberRepo.ChangeMemberName(memberId, newName);
         }
 
-        public void CreateMember(int memberId, string lastName, int age, int partyId, string partyName)
+        public void CreateMember(int memberId, string lastName, int age, int partyId)
         {
             memberRepo.CreateMember(memberId, lastName, age, partyId);
         }

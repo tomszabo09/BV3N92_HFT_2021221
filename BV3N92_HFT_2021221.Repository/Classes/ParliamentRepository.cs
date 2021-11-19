@@ -17,7 +17,7 @@ namespace BV3N92_HFT_2021221.Repository
 
         public void CreateParliament(int parliamentId, string name, string rulingParty)
         {
-            var _new = new Parliament() { ParliamentID = parliamentId, ParliamentName = name, Ruling_Party = rulingParty };
+            var _new = new Parliament() { ParliamentID = parliamentId, ParliamentName = name, RulingParty = rulingParty };
             ctx.Add(_new);
             ctx.SaveChanges();
         }
@@ -30,7 +30,7 @@ namespace BV3N92_HFT_2021221.Repository
         public void ReplaceRulingParty(int parliamentId, string newParty)
         {
             var parliament = GetOne(parliamentId);
-            parliament.Ruling_Party = newParty;
+            parliament.RulingParty = newParty;
             ctx.SaveChanges();
         }
         public void DeleteParliament(int parliamentId)

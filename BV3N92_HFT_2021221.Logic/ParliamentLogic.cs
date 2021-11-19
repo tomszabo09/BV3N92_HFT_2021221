@@ -125,7 +125,7 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void ReplaceRulingParty(int parliamentId, string newParty)
         {
-            if (GetParliamentByID(parliamentId).Ruling_Party.Equals(newParty))
+            if (GetParliamentByID(parliamentId).RulingParty.Equals(newParty))
             {
                 throw new Exception("New ruling party cannot have the same name as the old one!");
             }

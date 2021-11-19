@@ -39,9 +39,9 @@ namespace BV3N92_HFT_2021221.Data
                 .HasForeignKey(partymembers => partymembers.PartyID);
             });
 
-            Parliament ger = new Parliament() { ParliamentID = 1, ParliamentName = "Reichstag", Ruling_Party = "Conservative Party" };
-            Parliament eng = new Parliament() { ParliamentID = 2, ParliamentName = "House of Commons", Ruling_Party = "Socialist Party" };
-            Parliament hun = new Parliament() { ParliamentID = 3, ParliamentName = "Országház", Ruling_Party = "Nationalist Party" };
+            Parliament ger = new Parliament() { ParliamentID = 1, ParliamentName = "Reichstag", RulingParty = "Conservative Party" };
+            Parliament eng = new Parliament() { ParliamentID = 2, ParliamentName = "House of Commons", RulingParty = "Socialist Party" };
+            Parliament hun = new Parliament() { ParliamentID = 3, ParliamentName = "Országház", RulingParty = "Nationalist Party" };
 
             Party left = new Party() { PartyID = 1, ParliamentID = eng.ParliamentID, PartyName = "Socialist Party", Ideology = Ideologies.Socialist };
             Party center = new Party() { PartyID = 2, ParliamentID = ger.ParliamentID, PartyName = "Conservative Party", Ideology = Ideologies.Conservative };

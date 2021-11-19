@@ -17,7 +17,7 @@ namespace BV3N92_HFT_2021221.Models
         public string ParliamentName { get; set; }
 
         [Required]
-        public string Ruling_Party { get; set; }
+        public string RulingParty { get; set; }
 
         [NotMapped]
         public virtual ICollection<Party> Parties { get; set; }

@@ -19,10 +19,6 @@ namespace BV3N92_HFT_2021221.Logic
 
         void DeleteParty(int partyId);
 
-        void GetPartysParliament(int partyId);
-
         IList<Party> GetAllParties();
-
-        IList<PartyMember> GetAllMembersOfParty();
     }
 }

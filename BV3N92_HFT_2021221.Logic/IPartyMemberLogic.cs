@@ -11,7 +11,7 @@ namespace BV3N92_HFT_2021221.Logic
     {
         PartyMember GetMemberByID(int id);
 
-        void CreateMember(int memberId, string lastName, int age, int partyId, string partyName);
+        void CreateMember(int memberId, string lastName, int age, int partyId);
 
         void ChangeMemberName(int memberId, string newName);
 
@@ -20,10 +20,6 @@ namespace BV3N92_HFT_2021221.Logic
         void ChangeMemberAllegiance(int memberId, int newPartyId);
 
         void DeleteMember(int memberId);
-
-        bool IsOld(int memberId);
-
-        void GetPartyName(int memberId);
 
         IList<PartyMember> GetAllMembers();
     }

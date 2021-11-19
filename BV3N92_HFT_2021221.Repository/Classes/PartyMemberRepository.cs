@@ -15,9 +15,9 @@ namespace BV3N92_HFT_2021221.Repository
 
         }
 
-        public void CreateMember(int memberId, string lastName, int age, int partyId, string partyName)
+        public void CreateMember(int memberId, string lastName, int age, int partyId)
         {
-            var _new = new PartyMember() { MemberID = memberId, LastName = lastName, Age = age, PartyID = partyId, PartyName = partyName };
+            var _new = new PartyMember() { MemberID = memberId, LastName = lastName, Age = age, PartyID = partyId };
             ctx.Add(_new);
             ctx.SaveChanges();
         }

@@ -15,9 +15,9 @@ namespace BV3N92_HFT_2021221.Repository
 
         }
 
-        public void CreateParliament(int parliamentId, string name, string rulingParty, int partyId)
+        public void CreateParliament(int parliamentId, string name, string rulingParty)
         {
-            var _new = new Parliament() { ParliamentID = parliamentId, ParliamentName = name, Ruling_Party = rulingParty, PartyID = partyId };
+            var _new = new Parliament() { ParliamentID = parliamentId, ParliamentName = name, Ruling_Party = rulingParty };
             ctx.Add(_new);
             ctx.SaveChanges();
         }

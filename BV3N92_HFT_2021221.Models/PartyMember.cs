@@ -18,9 +18,6 @@ namespace BV3N92_HFT_2021221.Models
         [ForeignKey(nameof(Party))]
         public int PartyID { get; set; }
 
-        [Required]
-        public string PartyName { get; set; }
-
         [Range(18,int.MaxValue)]
         public int Age { get; set; }
 

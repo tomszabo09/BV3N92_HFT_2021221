@@ -27,10 +27,6 @@ namespace BV3N92_HFT_2021221.Models
         [ForeignKey(nameof(Parliament))]
         public int ParliamentID { get; set; }
 
-        [MaxLength(30)]
-        [Required]
-        public string ParliamentName { get; set; }
-
         [MaxLength(20)]
         [Required]
         public Ideologies Ideology { get; set; }

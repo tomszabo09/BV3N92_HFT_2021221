@@ -16,9 +16,6 @@ namespace BV3N92_HFT_2021221.Models
         [Required]
         public string ParliamentName { get; set; }
 
-        [ForeignKey(nameof(Party))]
-        public int PartyID { get; set; }
-
         [Required]
         public string Ruling_Party { get; set; }
 

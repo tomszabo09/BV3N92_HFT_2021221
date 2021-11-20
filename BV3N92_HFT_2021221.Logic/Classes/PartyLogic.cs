@@ -11,10 +11,12 @@ namespace BV3N92_HFT_2021221.Logic
     public class PartyLogic : IPartyLogic
     {
         IPartyRepository partyRepo;
+        IPartyMemberRepository partyMemberRepo;
 
-        public PartyLogic(IPartyRepository repo)
+        public PartyLogic(IPartyRepository repo, IPartyMemberRepository partyMemberRepository)
         {
             this.partyRepo = repo;
+            this.partyMemberRepo = partyMemberRepository;
         }
 
         public void ChangeIdeology(int partyId, Ideologies newIdeology)
@@ -127,6 +129,42 @@ namespace BV3N92_HFT_2021221.Logic
             }
             else
                 return partyRepo.GetOne(id);
+        }
+
+        public IEnumerable<PartyMember> GetSameIdeologyMembers(Ideologies ideology)
+        {
+            var q = from x in partyMemberRepo.GetAll().ToList()
+                    where GetAllParties().FirstOrDefault(party => party.PartyID == x.PartyID)?.Ideology == ideology
+                    select x;
+
+            return q;
+        }
+
+        public IEnumerable<PartyMember> GetJuniorMembers(int partyId)
+        {
+            var q = from x in partyMemberRepo.GetAll().ToList()
+                    where x.PartyID == partyId && x.Age < 40
+                    select x;
+
+            return q;
+        }
+
+        public IEnumerable<PartyMember> GetSeniorMembers(int partyId)
+        {
+            var q = from x in partyMemberRepo.GetAll().ToList()
+                    where x.PartyID == partyId && x.Age > 50
+                    select x;
+
+            return q;
+        }
+
+        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId, int maxNameLength)
+        {
+            var q = from x in partyMemberRepo.GetAll().ToList()
+                    where x.PartyID == partyId && x.LastName.Length <= maxNameLength
+                    select x;
+
+            return q;
         }
     }
 }

@@ -11,10 +11,12 @@ namespace BV3N92_HFT_2021221.Logic
     public class ParliamentLogic : IParliamentLogic
     {
         IParliamentRepository parliamentRepo;
+        IPartyRepository partyRepo;
 
-        public ParliamentLogic(IParliamentRepository repo)
+        public ParliamentLogic(IParliamentRepository repo, IPartyRepository prepo)
         {
             this.parliamentRepo = repo;
+            this.partyRepo = prepo;
         }
 
         public void ChangeName(int parliamentId, string newName)
@@ -97,6 +99,16 @@ namespace BV3N92_HFT_2021221.Logic
         public IList<Parliament> GetAllParliaments()
         {
             return parliamentRepo.GetAll().ToList();
+        }
+
+        public IEnumerable<Party> GetAllRulingParties()
+        {
+
+            var q = from party in partyRepo.GetAll().ToList()
+                    where GetAllParliaments().ToList().FirstOrDefault(parliament => parliament.RulingParty == party.PartyName) != null
+                    select party;
+
+            return q;
         }
 
         public Parliament GetParliamentByID(int id)

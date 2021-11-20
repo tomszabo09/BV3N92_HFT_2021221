@@ -51,11 +51,11 @@ namespace BV3N92_HFT_2021221.Data
             var members = new List<PartyMember>()
             {
                 //left
-                new PartyMember() { MemberID = 1, LastName = "Stewart", Age = r.Next(18,70), PartyID = 1 },
-                new PartyMember() { MemberID = 2, LastName = "Myers", Age = r.Next(18,70), PartyID = 1 },
-                new PartyMember() { MemberID = 3, LastName = "Norman", Age = r.Next(18,70), PartyID = 1 },
-                new PartyMember() { MemberID = 4, LastName = "Stephenson", Age = r.Next(18,70), PartyID = 1 },
-                new PartyMember() { MemberID = 5, LastName = "Horton", Age = r.Next(18,70), PartyID = 1 },
+                new PartyMember() { MemberID = 1, LastName = "Stewart", Age = 51, PartyID = 1 },
+                new PartyMember() { MemberID = 2, LastName = "Myers", Age = 39, PartyID = 1 },
+                new PartyMember() { MemberID = 3, LastName = "Norman", Age = 67, PartyID = 1 },
+                new PartyMember() { MemberID = 4, LastName = "Stephenson", Age = 23, PartyID = 1 },
+                new PartyMember() { MemberID = 5, LastName = "Horton", Age = 45, PartyID = 1 },
                 //center
                 new PartyMember() { MemberID = 6, LastName = "Weber", Age = r.Next(18,70), PartyID = 2 },
                 new PartyMember() { MemberID = 7, LastName = "von Hohenzoller", Age = r.Next(18,70), PartyID = 2 },

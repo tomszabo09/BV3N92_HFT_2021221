@@ -28,19 +28,17 @@ namespace BV3N92_HFT_2021221.Logic
                 throw new Exception("Name has to be given!");
             }
 
-            foreach (var item in GetAllParliaments())
+            if (GetAllParliaments().Any(x => x.ParliamentName == newName))
             {
-                if (item.ParliamentName.Equals(newName))
-                {
-                    throw new Exception($"A parliament with the name '{newName}' already exists!");
-                }
-                else if (item.ParliamentID.Equals(parliamentId))
-                {
-                    parliamentRepo.ChangeName(parliamentId, newName);
-                }
-                else
-                    throw new Exception($"No such parliament with ID '{parliamentId}'!");
+                throw new Exception($"A parliament with the name '{newName}' already exists!");
             }
+            else if (GetAllParliaments().Any(x => x.ParliamentID == parliamentId))
+            {
+                parliamentRepo.ChangeName(parliamentId, newName);
+            }
+            else
+                throw new Exception($"No such parliament with ID '{parliamentId}'!");
+
         }
 
         public void CreateParliament(int parliamentId, string name, string rulingParty)
@@ -83,7 +81,7 @@ namespace BV3N92_HFT_2021221.Logic
                     i++;
                 }
             }
-
+            //findfirst
             if (parliamentId.Equals(null))
             {
                 throw new Exception("ID has to be given!");

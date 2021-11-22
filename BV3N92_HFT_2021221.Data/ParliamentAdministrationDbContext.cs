@@ -51,23 +51,23 @@ namespace BV3N92_HFT_2021221.Data
             var members = new List<PartyMember>()
             {
                 //left
-                new PartyMember() { MemberID = 1, LastName = "Stewart", Age = 51, PartyID = 1 },
-                new PartyMember() { MemberID = 2, LastName = "Myers", Age = 39, PartyID = 1 },
-                new PartyMember() { MemberID = 3, LastName = "Norman", Age = 67, PartyID = 1 },
-                new PartyMember() { MemberID = 4, LastName = "Stephenson", Age = 23, PartyID = 1 },
-                new PartyMember() { MemberID = 5, LastName = "Horton", Age = 45, PartyID = 1 },
+                new PartyMember() { MemberID = 1, LastName = "Stewart", Age = 51, PartyID = left.PartyID },
+                new PartyMember() { MemberID = 2, LastName = "Myers", Age = 39, PartyID = left.PartyID },
+                new PartyMember() { MemberID = 3, LastName = "Norman", Age = 67, PartyID = left.PartyID },
+                new PartyMember() { MemberID = 4, LastName = "Stephenson", Age = 23, PartyID = left.PartyID },
+                new PartyMember() { MemberID = 5, LastName = "Horton", Age = 45, PartyID = left.PartyID },
                 //center
-                new PartyMember() { MemberID = 6, LastName = "Weber", Age = r.Next(18,70), PartyID = 2 },
-                new PartyMember() { MemberID = 7, LastName = "von Hohenzoller", Age = r.Next(18,70), PartyID = 2 },
-                new PartyMember() { MemberID = 8, LastName = "von Tirpitz", Age = r.Next(18,70), PartyID = 2 },
-                new PartyMember() { MemberID = 9, LastName = "Schacht", Age = r.Next(18,70), PartyID = 2 },
-                new PartyMember() { MemberID = 10, LastName = "von Reuter", Age = r.Next(18,70), PartyID = 2 },
+                new PartyMember() { MemberID = 6, LastName = "Weber", Age = r.Next(18,70), PartyID = center.PartyID },
+                new PartyMember() { MemberID = 7, LastName = "von Hohenzoller", Age = r.Next(18,70), PartyID = center.PartyID },
+                new PartyMember() { MemberID = 8, LastName = "von Tirpitz", Age = r.Next(18,70), PartyID = center.PartyID },
+                new PartyMember() { MemberID = 9, LastName = "Schacht", Age = r.Next(18,70), PartyID = center.PartyID },
+                new PartyMember() { MemberID = 10, LastName = "von Reuter", Age = r.Next(18,70), PartyID = center.PartyID },
                 //right
-                new PartyMember() { MemberID = 11, LastName = "Vörös", Age = r.Next(18,70), PartyID = 3 },
-                new PartyMember() { MemberID = 12, LastName = "Tóth", Age = r.Next(18,70), PartyID = 3 },
-                new PartyMember() { MemberID = 13, LastName = "Hajdú", Age = r.Next(18,70), PartyID = 3 },
-                new PartyMember() { MemberID = 14, LastName = "Kocsis", Age = r.Next(18,70), PartyID = 3 },
-                new PartyMember() { MemberID = 15, LastName = "Biró", Age = r.Next(18,70), PartyID = 3 }
+                new PartyMember() { MemberID = 11, LastName = "Vörös", Age = r.Next(18,70), PartyID = right.PartyID },
+                new PartyMember() { MemberID = 12, LastName = "Tóth", Age = r.Next(18,70), PartyID = right.PartyID },
+                new PartyMember() { MemberID = 13, LastName = "Hajdú", Age = r.Next(18,70), PartyID = right.PartyID },
+                new PartyMember() { MemberID = 14, LastName = "Kocsis", Age = r.Next(18,70), PartyID = right.PartyID },
+                new PartyMember() { MemberID = 15, LastName = "Biró", Age = r.Next(18,70), PartyID = right.PartyID }
             };
 
             modelBuilder.Entity<Parliament>().HasData(ger, eng, hun);

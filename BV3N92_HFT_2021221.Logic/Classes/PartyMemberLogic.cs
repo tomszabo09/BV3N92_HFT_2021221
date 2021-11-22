@@ -19,9 +19,9 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void ChangeMemberAge(int memberId, int newAge)
         {
-            if (memberId.Equals(null))
+            if (memberId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (GetMemberByID(memberId).Age.Equals(newAge))
             {
@@ -37,9 +37,9 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void ChangeMemberAllegiance(int memberId, int newPartyId)
         {
-            if (memberId.Equals(null))
+            if (memberId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (GetMemberByID(memberId).PartyID.Equals(newPartyId))
             {
@@ -51,9 +51,9 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void ChangeMemberName(int memberId, string newName)
         {
-            if (memberId.Equals(null))
+            if (memberId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (GetMemberByID(memberId).LastName.Equals(string.Empty))
             {
@@ -77,25 +77,25 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
 
-            if (memberId.Equals(null))
+            if (memberId < 0)
             {
-                throw new Exception("Member ID has to be given!");
+                throw new Exception("Invalid Member ID!");
             }
             else if (lastName.Equals(string.Empty))
             {
                 throw new Exception("Name has to be given!");
             }
-            else if (age.Equals(null))
+            else if (age < 0)
             {
-                throw new Exception("Age has to be given!");
+                throw new Exception("Invalid age value!");
             }
             else if (age < 18 || age > 70)
             {
                 throw new Exception("The age pool is between 18 and 70 years!");
             }
-            else if (partyId.Equals(null))
+            else if (partyId < 0)
             {
-                throw new Exception("Party ID has to be given!");
+                throw new Exception("Invalid Party ID!");
             }
             else
                 memberRepo.CreateMember(memberId, lastName, age, partyId);
@@ -112,9 +112,9 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
 
-            if (memberId.Equals(null))
+            if (memberId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (i == 0)
             {
@@ -139,9 +139,9 @@ namespace BV3N92_HFT_2021221.Logic
                     i++;
                 }
             }
-            if (id.Equals(null))
+            if (id < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (i == 0)
             {

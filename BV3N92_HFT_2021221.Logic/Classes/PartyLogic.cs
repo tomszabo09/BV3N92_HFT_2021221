@@ -21,9 +21,9 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void ChangeIdeology(int partyId, Ideologies newIdeology)
         {
-            if (partyId.Equals(null))
+            if (partyId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (GetPartyByID(partyId).Ideology.Equals(newIdeology))
             {
@@ -35,9 +35,9 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void ChangePartyName(int partyId, string newName)
         {
-            if (partyId.Equals(null))
+            if (partyId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (newName.Equals(string.Empty))
             {
@@ -65,13 +65,13 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
 
-            if (partyId.Equals(null))
+            if (partyId < 0)
             {
-                throw new Exception("Party ID has to be given!");
+                throw new Exception("Invalid Party ID!");
             }
-            else if (parliamentId.Equals(null))
+            else if (parliamentId < 0)
             {
-                throw new Exception("Parliament ID has to be given!");
+                throw new Exception("Invalid Parliament ID!");
             }
             else if (partyName.Equals(string.Empty))
             {
@@ -92,9 +92,9 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
 
-            if (partyId.Equals(null))
+            if (partyId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (i == 0)
             {
@@ -119,9 +119,9 @@ namespace BV3N92_HFT_2021221.Logic
                     i++;
                 }
             }
-            if (id.Equals(null))
+            if (id < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (i == 0)
             {

@@ -21,9 +21,9 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void ChangeName(int parliamentId, string newName)
         {
-            if (parliamentId.Equals(null))
+            if (parliamentId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (newName.Equals(string.Empty))
             {
@@ -57,9 +57,9 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
 
-            if (parliamentId.Equals(null))
+            if (parliamentId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (name.Equals(string.Empty))
             {
@@ -84,9 +84,9 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
             //findfirst
-            if (parliamentId.Equals(null))
+            if (parliamentId < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (i == 0)
             {
@@ -121,9 +121,9 @@ namespace BV3N92_HFT_2021221.Logic
                     i++;
                 }
             }
-            if (id.Equals(null))
+            if (id < 0)
             {
-                throw new Exception("ID has to be given!");
+                throw new Exception("Invalid ID!");
             }
             else if (i == 0)
             {

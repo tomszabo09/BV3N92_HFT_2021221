@@ -39,22 +39,22 @@ namespace BV3N92_HFT_2021221.Data
                 .HasForeignKey(partymembers => partymembers.PartyID);
             });
 
-            Parliament ger = new Parliament() { ParliamentID = 1, ParliamentName = "Reichstag", RulingParty = "English Conservative Party" };
-            Parliament eng = new Parliament() { ParliamentID = 2, ParliamentName = "House of Commons", RulingParty = "German Socialist Party" };
-            Parliament hun = new Parliament() { ParliamentID = 3, ParliamentName = "Országház", RulingParty = "Hungarian Nationalist Party" };
+            Parliament ger = new Parliament() { ParliamentID = 1, ParliamentName = "Reichstag", RulingParty = "Deutschkonservative Partei" };
+            Parliament eng = new Parliament() { ParliamentID = 2, ParliamentName = "House of Commons", RulingParty = "English Socialist Party" };
+            Parliament hun = new Parliament() { ParliamentID = 3, ParliamentName = "Országház", RulingParty = "Magyar Nemzeti Párt" };
 
 
-            Party gerleft = new Party() { PartyID = 1, ParliamentID = ger.ParliamentID, PartyName = "German Socialist Party", Ideology = Ideologies.Socialist };
-            Party gercenter = new Party() { PartyID = 2, ParliamentID = ger.ParliamentID, PartyName = "German Conservative Party", Ideology = Ideologies.Conservative };
-            Party gerright = new Party() { PartyID = 3, ParliamentID = ger.ParliamentID, PartyName = "German Nationalist Party", Ideology = Ideologies.Nationalist };
+            Party gerleft = new Party() { PartyID = 1, ParliamentID = ger.ParliamentID, PartyName = "Sozialdemokratische Partei Deutschalnds", Ideology = Ideologies.Socialist };
+            Party gercenter = new Party() { PartyID = 2, ParliamentID = ger.ParliamentID, PartyName = "Deutschkonservative Partei", Ideology = Ideologies.Conservative };
+            Party gerright = new Party() { PartyID = 3, ParliamentID = ger.ParliamentID, PartyName = "Deutsche Vaterlandspartei", Ideology = Ideologies.Nationalist };
 
             Party engleft = new Party() { PartyID = 4, ParliamentID = eng.ParliamentID, PartyName = "English Socialist Party", Ideology = Ideologies.Socialist };
             Party engcenter = new Party() { PartyID = 5, ParliamentID = eng.ParliamentID, PartyName = "English Conservative Party", Ideology = Ideologies.Conservative };
-            Party engright = new Party() { PartyID = 6, ParliamentID = eng.ParliamentID, PartyName = "English Nationalist Party", Ideology = Ideologies.Nationalist };
+            Party engright = new Party() { PartyID = 6, ParliamentID = eng.ParliamentID, PartyName = "English National Party", Ideology = Ideologies.Nationalist };
 
-            Party hunleft = new Party() { PartyID = 7, ParliamentID = hun.ParliamentID, PartyName = "Hungarian Socialist Party", Ideology = Ideologies.Socialist };
-            Party huncenter = new Party() { PartyID = 8, ParliamentID = hun.ParliamentID, PartyName = "Hungarian Conservative Party", Ideology = Ideologies.Conservative };
-            Party hunright = new Party() { PartyID = 9, ParliamentID = hun.ParliamentID, PartyName = "Hungarian Nationalist Party", Ideology = Ideologies.Nationalist };
+            Party hunleft = new Party() { PartyID = 7, ParliamentID = hun.ParliamentID, PartyName = "Magyar Szociáldemokrata Párt", Ideology = Ideologies.Socialist };
+            Party huncenter = new Party() { PartyID = 8, ParliamentID = hun.ParliamentID, PartyName = "Magyar Konzervatív Párt", Ideology = Ideologies.Conservative };
+            Party hunright = new Party() { PartyID = 9, ParliamentID = hun.ParliamentID, PartyName = "Magyar Nemzeti Párt", Ideology = Ideologies.Nationalist };
 
             var members = new List<PartyMember>()
             {

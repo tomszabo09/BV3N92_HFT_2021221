@@ -9,11 +9,11 @@ namespace BV3N92_HFT_2021221.Repository
 {
     public interface IPartyRepository : IRepository<Party>
     {
-        void CreateParty(int partyId, int parliamentId, string partyName, Ideologies ideology);
+        void CreateParty(int partyId, int parliamentId, string partyName, string ideology);
 
         void ChangePartyName(int partyId, string newName);
 
-        void ChangeIdeology(int partyId, Ideologies newIdeology);
+        void ChangeIdeology(int partyId, string newIdeology);
 
         void DeleteParty(int partyId);
     }

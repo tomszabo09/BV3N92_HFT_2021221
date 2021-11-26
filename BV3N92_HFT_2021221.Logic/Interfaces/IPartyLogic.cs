@@ -11,11 +11,11 @@ namespace BV3N92_HFT_2021221.Logic
     {
         Party GetPartyByID(int id);
 
-        void CreateParty(int partyId, int parliamentId, string partyName, Ideologies ideology);
+        void CreateParty(int partyId, int parliamentId, string partyName, string ideology);
 
         void ChangePartyName(int partyId, string newName);
 
-        void ChangeIdeology(int partyId, Ideologies newIdeology);
+        void ChangeIdeology(int partyId, string newIdeology);
 
         void DeleteParty(int partyId);
 
@@ -25,7 +25,7 @@ namespace BV3N92_HFT_2021221.Logic
 
         IEnumerable<PartyMember> GetJuniorMembers(int partyId);
 
-        IEnumerable<PartyMember> GetSameIdeologyMembers(Ideologies ideology);
+        IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology);
 
         IList<Party> GetAllParties();
     }

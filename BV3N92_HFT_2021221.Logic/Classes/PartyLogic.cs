@@ -19,11 +19,19 @@ namespace BV3N92_HFT_2021221.Logic
             this.partyMemberRepo = partyMemberRepository;
         }
 
-        public void ChangeIdeology(int partyId, Ideologies newIdeology)
+        public void ChangeIdeology(int partyId, string newIdeology)
         {
             if (partyId < 0)
             {
                 throw new Exception("Invalid ID!");
+            }
+            else if (newIdeology.ToString().Equals(string.Empty))
+            {
+                throw new Exception("Ideology has to be given!");
+            }
+            else if (!newIdeology.Equals(Ideologies.Socialist.ToString()) && !newIdeology.Equals(Ideologies.Conservative.ToString()) && !newIdeology.Equals(Ideologies.Nationalist.ToString()))
+            {
+                throw new Exception($"Non-existent ideology! Ideology pool: {Ideologies.Socialist}, {Ideologies.Conservative}, {Ideologies.Nationalist}");
             }
             else if (GetPartyByID(partyId).Ideology.Equals(newIdeology))
             {
@@ -51,7 +59,7 @@ namespace BV3N92_HFT_2021221.Logic
                 partyRepo.ChangePartyName(partyId, newName);
         }
 
-        public void CreateParty(int partyId, int parliamentId, string partyName, Ideologies ideology)
+        public void CreateParty(int partyId, int parliamentId, string partyName, string ideology)
         {
             foreach (var item in GetAllParties())
             {
@@ -76,6 +84,14 @@ namespace BV3N92_HFT_2021221.Logic
             else if (partyName.Equals(string.Empty))
             {
                 throw new Exception("Name has to be given!");
+            }
+            else if (ideology.ToString().Equals(string.Empty))
+            {
+                throw new Exception("Ideology has to be given!");
+            }
+            else if (!ideology.Equals(Ideologies.Socialist.ToString()) && !ideology.Equals(Ideologies.Conservative.ToString()) && !ideology.Equals(Ideologies.Nationalist.ToString()))
+            {
+                throw new Exception($"Non-existent ideology! Ideology pool: {Ideologies.Socialist}, {Ideologies.Conservative}, {Ideologies.Nationalist}");
             }
             else
                 partyRepo.CreateParty(partyId, parliamentId, partyName, ideology);
@@ -131,7 +147,7 @@ namespace BV3N92_HFT_2021221.Logic
                 return partyRepo.GetOne(id);
         }
 
-        public IEnumerable<PartyMember> GetSameIdeologyMembers(Ideologies ideology)
+        public IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology)
         {
             var q = from x in partyMemberRepo.GetAll().ToList()
                     where GetAllParties().FirstOrDefault(party => party.PartyID == x.PartyID)?.Ideology == ideology

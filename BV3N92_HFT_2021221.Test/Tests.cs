@@ -37,7 +37,7 @@ namespace BV3N92_HFT_2021221.Test
                 PartyID = 9,
                 ParliamentID = 5,
                 PartyName = "TestParty9",
-                Ideology = Ideologies.Conservative
+                Ideology = Ideologies.Conservative.ToString()
             });
 
             mockedPartyMemberRepo.Setup(x => x.GetOne(It.IsAny<int>())).Returns(new PartyMember()
@@ -67,7 +67,7 @@ namespace BV3N92_HFT_2021221.Test
         [Test]
         public void GetOnePartyReturnsCorrectInstance()
         {
-            Assert.That(this.partyLogic.GetPartyByID(1).Ideology, Is.EqualTo(Ideologies.Conservative));
+            Assert.That(this.partyLogic.GetPartyByID(1).Ideology, Is.EqualTo(Ideologies.Conservative.ToString()));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace BV3N92_HFT_2021221.Test
         [Test]
         public void GetSameIdeologyMembersIsCorrect()
         {
-            Assert.That(this.partyLogic.GetSameIdeologyMembers(Ideologies.Nationalist).ToList().Count.Equals(6));
+            Assert.That(this.partyLogic.GetSameIdeologyMembers(Ideologies.Nationalist.ToString()).ToList().Count.Equals(6));
         }
 
         [Test]
@@ -120,12 +120,14 @@ namespace BV3N92_HFT_2021221.Test
             Assert.That(() => this.parliamentLogic.CreateParliament(parliamentId, name, rulingParty), Throws.TypeOf<Exception>());
         }
 
-        [TestCase(1, 6, "Test", Ideologies.Socialist)] // party id occupied
-        [TestCase(-1, 5, "TestParty9", Ideologies.Socialist)] // invalid party id
-        [TestCase(9, -1, "TestParty9", Ideologies.Socialist)] // invalid parliament id
-        [TestCase(9, 5, "TestParty3", Ideologies.Socialist)] // party name occupied
-        [TestCase(9, 5, "", Ideologies.Socialist)] // no party name
-        public void CreatePartyWithIncorrectDataThrowsException(int partyId, int parliamentId, string partyName, Ideologies ideology)
+        [TestCase(1, 6, "Test", "Socialist")] // party id occupied
+        [TestCase(-1, 5, "TestParty9", "Socialist")] // invalid party id
+        [TestCase(9, -1, "TestParty9", "Socialist")] // invalid parliament id
+        [TestCase(9, 5, "TestParty3", "Socialist")] // party name occupied
+        [TestCase(9, 5, "", "Socialist")] // no party name
+        [TestCase(9, 5, "TestParty9", "")] // no ideology
+        [TestCase(9, 5, "TestParty9", "Ideology")] // ideology value not in enum pool
+        public void CreatePartyWithIncorrectDataThrowsException(int partyId, int parliamentId, string partyName, string ideology)
         {
             Assert.That(() => this.partyLogic.CreateParty(partyId, parliamentId, partyName, ideology), Throws.TypeOf<Exception>());
         }
@@ -155,14 +157,14 @@ namespace BV3N92_HFT_2021221.Test
             p3.Parties = new List<Party>();
             p4.Parties = new List<Party>();
 
-            Party pt1 = new Party() { PartyID = 1, ParliamentID = p1.ParliamentID, PartyName = "TestParty1", Ideology = Ideologies.Socialist };
-            Party pt2 = new Party() { PartyID = 2, ParliamentID = p1.ParliamentID, PartyName = "TestParty2", Ideology = Ideologies.Nationalist };
-            Party pt3 = new Party() { PartyID = 3, ParliamentID = p1.ParliamentID, PartyName = "TestParty3", Ideology = Ideologies.Conservative };
-            Party pt4 = new Party() { PartyID = 4, ParliamentID = p2.ParliamentID, PartyName = "TestParty4", Ideology = Ideologies.Nationalist };
-            Party pt5 = new Party() { PartyID = 5, ParliamentID = p2.ParliamentID, PartyName = "TestParty5", Ideology = Ideologies.Socialist };
-            Party pt6 = new Party() { PartyID = 6, ParliamentID = p3.ParliamentID, PartyName = "TestParty6", Ideology = Ideologies.Nationalist };
-            Party pt7 = new Party() { PartyID = 7, ParliamentID = p3.ParliamentID, PartyName = "TestParty7", Ideology = Ideologies.Conservative };
-            Party pt8 = new Party() { PartyID = 8, ParliamentID = p4.ParliamentID, PartyName = "TestParty8", Ideology = Ideologies.Socialist };
+            Party pt1 = new Party() { PartyID = 1, ParliamentID = p1.ParliamentID, PartyName = "TestParty1", Ideology = Ideologies.Socialist.ToString() };
+            Party pt2 = new Party() { PartyID = 2, ParliamentID = p1.ParliamentID, PartyName = "TestParty2", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt3 = new Party() { PartyID = 3, ParliamentID = p1.ParliamentID, PartyName = "TestParty3", Ideology = Ideologies.Conservative.ToString() };
+            Party pt4 = new Party() { PartyID = 4, ParliamentID = p2.ParliamentID, PartyName = "TestParty4", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt5 = new Party() { PartyID = 5, ParliamentID = p2.ParliamentID, PartyName = "TestParty5", Ideology = Ideologies.Socialist.ToString() };
+            Party pt6 = new Party() { PartyID = 6, ParliamentID = p3.ParliamentID, PartyName = "TestParty6", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt7 = new Party() { PartyID = 7, ParliamentID = p3.ParliamentID, PartyName = "TestParty7", Ideology = Ideologies.Conservative.ToString() };
+            Party pt8 = new Party() { PartyID = 8, ParliamentID = p4.ParliamentID, PartyName = "TestParty8", Ideology = Ideologies.Socialist.ToString() };
 
             p1.Parties.Add(pt1);
             p1.Parties.Add(pt2);
@@ -238,14 +240,14 @@ namespace BV3N92_HFT_2021221.Test
             p3.Parties = new List<Party>();
             p4.Parties = new List<Party>();
 
-            Party pt1 = new Party() { PartyID = 1, ParliamentID = p1.ParliamentID, PartyName = "TestParty1", Ideology = Ideologies.Socialist };
-            Party pt2 = new Party() { PartyID = 2, ParliamentID = p1.ParliamentID, PartyName = "TestParty2", Ideology = Ideologies.Nationalist };
-            Party pt3 = new Party() { PartyID = 3, ParliamentID = p1.ParliamentID, PartyName = "TestParty3", Ideology = Ideologies.Conservative };
-            Party pt4 = new Party() { PartyID = 4, ParliamentID = p2.ParliamentID, PartyName = "TestParty4", Ideology = Ideologies.Nationalist };
-            Party pt5 = new Party() { PartyID = 5, ParliamentID = p2.ParliamentID, PartyName = "TestParty5", Ideology = Ideologies.Socialist };
-            Party pt6 = new Party() { PartyID = 6, ParliamentID = p3.ParliamentID, PartyName = "TestParty6", Ideology = Ideologies.Nationalist };
-            Party pt7 = new Party() { PartyID = 7, ParliamentID = p3.ParliamentID, PartyName = "TestParty7", Ideology = Ideologies.Conservative };
-            Party pt8 = new Party() { PartyID = 8, ParliamentID = p4.ParliamentID, PartyName = "TestParty8", Ideology = Ideologies.Socialist };
+            Party pt1 = new Party() { PartyID = 1, ParliamentID = p1.ParliamentID, PartyName = "TestParty1", Ideology = Ideologies.Socialist.ToString() };
+            Party pt2 = new Party() { PartyID = 2, ParliamentID = p1.ParliamentID, PartyName = "TestParty2", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt3 = new Party() { PartyID = 3, ParliamentID = p1.ParliamentID, PartyName = "TestParty3", Ideology = Ideologies.Conservative.ToString() };
+            Party pt4 = new Party() { PartyID = 4, ParliamentID = p2.ParliamentID, PartyName = "TestParty4", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt5 = new Party() { PartyID = 5, ParliamentID = p2.ParliamentID, PartyName = "TestParty5", Ideology = Ideologies.Socialist.ToString() };
+            Party pt6 = new Party() { PartyID = 6, ParliamentID = p3.ParliamentID, PartyName = "TestParty6", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt7 = new Party() { PartyID = 7, ParliamentID = p3.ParliamentID, PartyName = "TestParty7", Ideology = Ideologies.Conservative.ToString() };
+            Party pt8 = new Party() { PartyID = 8, ParliamentID = p4.ParliamentID, PartyName = "TestParty8", Ideology = Ideologies.Socialist.ToString() };
 
             p1.Parties.Add(pt1);
             p1.Parties.Add(pt2);
@@ -325,14 +327,14 @@ namespace BV3N92_HFT_2021221.Test
             p3.Parties = new List<Party>();
             p4.Parties = new List<Party>();
 
-            Party pt1 = new Party() { PartyID = 1, ParliamentID = p1.ParliamentID, PartyName = "TestParty1", Ideology = Ideologies.Socialist };
-            Party pt2 = new Party() { PartyID = 2, ParliamentID = p1.ParliamentID, PartyName = "TestParty2", Ideology = Ideologies.Nationalist };
-            Party pt3 = new Party() { PartyID = 3, ParliamentID = p1.ParliamentID, PartyName = "TestParty3", Ideology = Ideologies.Conservative };
-            Party pt4 = new Party() { PartyID = 4, ParliamentID = p2.ParliamentID, PartyName = "TestParty4", Ideology = Ideologies.Nationalist };
-            Party pt5 = new Party() { PartyID = 5, ParliamentID = p2.ParliamentID, PartyName = "TestParty5", Ideology = Ideologies.Socialist };
-            Party pt6 = new Party() { PartyID = 6, ParliamentID = p3.ParliamentID, PartyName = "TestParty6", Ideology = Ideologies.Nationalist };
-            Party pt7 = new Party() { PartyID = 7, ParliamentID = p3.ParliamentID, PartyName = "TestParty7", Ideology = Ideologies.Conservative };
-            Party pt8 = new Party() { PartyID = 8, ParliamentID = p4.ParliamentID, PartyName = "TestParty8", Ideology = Ideologies.Socialist };
+            Party pt1 = new Party() { PartyID = 1, ParliamentID = p1.ParliamentID, PartyName = "TestParty1", Ideology = Ideologies.Socialist.ToString() };
+            Party pt2 = new Party() { PartyID = 2, ParliamentID = p1.ParliamentID, PartyName = "TestParty2", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt3 = new Party() { PartyID = 3, ParliamentID = p1.ParliamentID, PartyName = "TestParty3", Ideology = Ideologies.Conservative.ToString() };
+            Party pt4 = new Party() { PartyID = 4, ParliamentID = p2.ParliamentID, PartyName = "TestParty4", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt5 = new Party() { PartyID = 5, ParliamentID = p2.ParliamentID, PartyName = "TestParty5", Ideology = Ideologies.Socialist.ToString() };
+            Party pt6 = new Party() { PartyID = 6, ParliamentID = p3.ParliamentID, PartyName = "TestParty6", Ideology = Ideologies.Nationalist.ToString() };
+            Party pt7 = new Party() { PartyID = 7, ParliamentID = p3.ParliamentID, PartyName = "TestParty7", Ideology = Ideologies.Conservative.ToString() };
+            Party pt8 = new Party() { PartyID = 8, ParliamentID = p4.ParliamentID, PartyName = "TestParty8", Ideology = Ideologies.Socialist.ToString() };
 
             p1.Parties.Add(pt1);
             p1.Parties.Add(pt2);

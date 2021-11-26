@@ -15,13 +15,13 @@ namespace BV3N92_HFT_2021221.Repository
 
         }
 
-        public void CreateParty(int partyId, int parliamentId, string partyName, Ideologies ideology)
+        public void CreateParty(int partyId, int parliamentId, string partyName, string ideology)
         {
             var _new = new Party() { PartyID = partyId, ParliamentID = parliamentId, PartyName = partyName, Ideology = ideology };
             ctx.Add(_new);
             ctx.SaveChanges();
         }
-        public void ChangeIdeology(int partyId, Ideologies newIdeology)
+        public void ChangeIdeology(int partyId, string newIdeology)
         {
             var party = GetOne(partyId);
             party.Ideology = newIdeology;

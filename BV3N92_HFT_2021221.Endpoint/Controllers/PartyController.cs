@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BV3N92_HFT_2021221.Logic;
+using BV3N92_HFT_2021221.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BV3N92_HFT_2021221.Endpoint.Controllers
 {
@@ -12,36 +12,53 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
     [ApiController]
     public class PartyController : ControllerBase
     {
-        // GET: api/<PartyController>
+        IPartyLogic partyLogic;
+
+        public PartyController(IPartyLogic partyLogic)
+        {
+            this.partyLogic = partyLogic;
+        }
+
+        // GET: /party
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Party> Get()
         {
-            return new string[] { "value1", "value2" };
+            return partyLogic.GetAllParties();
         }
 
-        // GET api/<PartyController>/5
+        // GET /party/2
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Party Get(int id)
         {
-            return "value";
+            return partyLogic.GetPartyByID(id);
         }
 
-        // POST api/<PartyController>
+        // POST /party
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(int partyId, int parliamentId, string partyName, string ideology)
         {
+            partyLogic.CreateParty(partyId, parliamentId, partyName, ideology);
         }
 
-        // PUT api/<PartyController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT /party
+        [HttpPut]
+        public void PutName(int id, string newName)
         {
+            partyLogic.ChangePartyName(id, newName);
         }
 
-        // DELETE api/<PartyController>/5
+        // PUT /party
+        [HttpPut]
+        public void PutIdeology(int id, string newIdeology)
+        {
+            partyLogic.ChangeIdeology(id, newIdeology);
+        }
+
+        // DELETE /party/2
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            partyLogic.DeleteParty(id);
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BV3N92_HFT_2021221.Logic;
+using BV3N92_HFT_2021221.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BV3N92_HFT_2021221.Endpoint.Controllers
 {
@@ -12,36 +12,60 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
     [ApiController]
     public class PartyMemberController : ControllerBase
     {
-        // GET: api/<PartyMemberController>
+        IPartyMemberLogic memberLogic;
+
+        public PartyMemberController(IPartyMemberLogic memberLogic)
+        {
+            this.memberLogic = memberLogic;
+        }
+
+        // GET: /partymember
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<PartyMember> Get()
         {
-            return new string[] { "value1", "value2" };
+            return memberLogic.GetAllMembers();
         }
 
-        // GET api/<PartyMemberController>/5
+        // GET /partymember/2
         [HttpGet("{id}")]
-        public string Get(int id)
+        public PartyMember Get(int id)
         {
-            return "value";
+            return memberLogic.GetMemberByID(id);
         }
 
-        // POST api/<PartyMemberController>
+        // POST /partymember
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(int memberId, string lastName, int age, int partyId)
         {
+            memberLogic.CreateMember(memberId, lastName, age, partyId);
         }
 
-        // PUT api/<PartyMemberController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT /partymember
+        [HttpPut]
+        public void PutName(int id, string newName)
         {
+            memberLogic.ChangeMemberName(id, newName);
         }
 
-        // DELETE api/<PartyMemberController>/5
+        // PUT /partymember
+        [HttpPut]
+        public void PutAge(int id, int newAge)
+        {
+            memberLogic.ChangeMemberAge(id, newAge);
+        }
+
+        // PUT /partymember
+        [HttpPut]
+        public void PutAllegiance(int id, int newPartyId)
+        {
+            memberLogic.ChangeMemberAllegiance(id, newPartyId);
+        }
+
+        // DELETE /partymember/2
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            memberLogic.DeleteMember(id);
         }
     }
 }

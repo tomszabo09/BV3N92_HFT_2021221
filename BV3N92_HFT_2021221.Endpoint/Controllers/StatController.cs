@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BV3N92_HFT_2021221.Logic;
+using BV3N92_HFT_2021221.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BV3N92_HFT_2021221.Endpoint.Controllers
 {
@@ -12,36 +12,48 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
     [ApiController]
     public class StatController : ControllerBase
     {
-        // GET: api/<StatController>
+        IParliamentLogic parliamentLogic;
+        IPartyLogic partyLogic;
+
+        public StatController(IParliamentLogic parliamentLogic, IPartyLogic partyLogic)
+        {
+            this.parliamentLogic = parliamentLogic;
+            this.partyLogic = partyLogic;
+        }
+
+        // GET: stat/getallrulingparties
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Party> GetAllRulingParties()
         {
-            return new string[] { "value1", "value2" };
+            return parliamentLogic.GetAllRulingParties();
         }
 
-        // GET api/<StatController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: stat/getshortnamedmembers
+        [HttpGet]
+        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId, int maxNameLength)
         {
-            return "value";
+            return partyLogic.GetShortNamedMembers(partyId, maxNameLength);
         }
 
-        // POST api/<StatController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // GET: stat/getseniormembers
+        [HttpGet]
+        public IEnumerable<PartyMember> GetSeniorMembers(int partyId)
         {
+            return partyLogic.GetSeniorMembers(partyId);
         }
 
-        // PUT api/<StatController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // GET: stat/getjuniormembers
+        [HttpGet]
+        public IEnumerable<PartyMember> GetJuniorMembers(int partyId)
         {
+            return partyLogic.GetJuniorMembers(partyId);
         }
 
-        // DELETE api/<StatController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // GET: stat/getsameideologymembers
+        [HttpGet]
+        public IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology)
         {
+            return partyLogic.GetSameIdeologyMembers(ideology);
         }
     }
 }

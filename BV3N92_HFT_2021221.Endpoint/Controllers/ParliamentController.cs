@@ -6,51 +6,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BV3N92_HFT_2021221.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     public class ParliamentController : ControllerBase
     {
-        IParliamentLogic pl;
+        IParliamentLogic parliamentLogic;
 
-        public ParliamentController(IParliamentLogic pl)
+        public ParliamentController(IParliamentLogic parliamentLogic)
         {
-            this.pl = pl;
+            this.parliamentLogic = parliamentLogic;
         }
 
         // GET: /parliament
         [HttpGet]
         public IEnumerable<Parliament> Get()
         {
-            return pl.GetAllParliaments();
+            return parliamentLogic.GetAllParliaments();
         }
 
         // GET /parliament/2
         [HttpGet("{id}")]
         public Parliament Get(int id)
         {
-            return pl.GetParliamentByID(id);
+            return parliamentLogic.GetParliamentByID(id);
         }
 
         // POST /parliament
         [HttpPost]
-        public void Post([FromBody] Parliament value)
+        public void Post(int id, string name, string rulingParty)
         {
+            parliamentLogic.CreateParliament(id, name, rulingParty);
         }
 
         // PUT /parliament
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void PutName(int id, string newName)
         {
+            parliamentLogic.ChangeName(id, newName);
+        }
+
+        // PUT /parliament
+        [HttpPut]
+        public void PutRulingParty(int id, string newParty)
+        {
+            parliamentLogic.ReplaceRulingParty(id, newParty);
         }
 
         // DELETE /parliament/2
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            parliamentLogic.DeleteParliament(id);
         }
     }
 }

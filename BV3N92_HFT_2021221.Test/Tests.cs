@@ -105,7 +105,7 @@ namespace BV3N92_HFT_2021221.Test
         [Test]
         public void GetShortNamedMembersIsCorrect()
         {
-            Assert.That(this.partyLogic.GetShortNamedMembers(5,11).ToList().Count.Equals(1));
+            Assert.That(this.partyLogic.GetShortNamedMembers(8).ToList().Count.Equals(1));
         }
         #endregion
 
@@ -199,7 +199,7 @@ namespace BV3N92_HFT_2021221.Test
             PartyMember pm13 = new PartyMember() { MemberID = 13, LastName = "TestMember13", Age = 33, PartyID = pt7.PartyID };
             PartyMember pm14 = new PartyMember() { MemberID = 14, LastName = "TestMember14", Age = 43, PartyID = pt7.PartyID };
             PartyMember pm15 = new PartyMember() { MemberID = 15, LastName = "TestMember15", Age = 53, PartyID = pt8.PartyID };
-            PartyMember pm16 = new PartyMember() { MemberID = 16, LastName = "TestMember16", Age = 63, PartyID = pt8.PartyID };
+            PartyMember pm16 = new PartyMember() { MemberID = 16, LastName = "TM16", Age = 63, PartyID = pt8.PartyID };
 
             pt1.PartyMembers.Add(pm1);
             pt1.PartyMembers.Add(pm2);
@@ -282,7 +282,7 @@ namespace BV3N92_HFT_2021221.Test
             PartyMember pm13 = new PartyMember() { MemberID = 13, LastName = "TestMember13", Age = 33, PartyID = pt7.PartyID };
             PartyMember pm14 = new PartyMember() { MemberID = 14, LastName = "TestMember14", Age = 43, PartyID = pt7.PartyID };
             PartyMember pm15 = new PartyMember() { MemberID = 15, LastName = "TestMember15", Age = 53, PartyID = pt8.PartyID };
-            PartyMember pm16 = new PartyMember() { MemberID = 16, LastName = "TestMember16", Age = 63, PartyID = pt8.PartyID };
+            PartyMember pm16 = new PartyMember() { MemberID = 16, LastName = "TM16", Age = 63, PartyID = pt8.PartyID };
 
             pt1.PartyMembers.Add(pm1);
             pt1.PartyMembers.Add(pm2);
@@ -369,7 +369,7 @@ namespace BV3N92_HFT_2021221.Test
             PartyMember pm13 = new PartyMember() { MemberID = 13, LastName = "TestMember13", Age = 33, PartyID = pt7.PartyID };
             PartyMember pm14 = new PartyMember() { MemberID = 14, LastName = "TestMember14", Age = 43, PartyID = pt7.PartyID };
             PartyMember pm15 = new PartyMember() { MemberID = 15, LastName = "TestMember15", Age = 53, PartyID = pt8.PartyID };
-            PartyMember pm16 = new PartyMember() { MemberID = 16, LastName = "TestMember16", Age = 63, PartyID = pt8.PartyID };
+            PartyMember pm16 = new PartyMember() { MemberID = 16, LastName = "TM16", Age = 63, PartyID = pt8.PartyID };
 
             pt1.PartyMembers.Add(pm1);
             pt1.PartyMembers.Add(pm2);

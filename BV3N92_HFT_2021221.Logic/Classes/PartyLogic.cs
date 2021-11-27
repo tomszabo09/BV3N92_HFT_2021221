@@ -174,10 +174,10 @@ namespace BV3N92_HFT_2021221.Logic
             return q;
         }
 
-        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId, int maxNameLength)
+        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId)
         {
             var q = from x in partyMemberRepo.GetAll().ToList()
-                    where x.PartyID == partyId && x.LastName.Length <= maxNameLength
+                    where x.PartyID == partyId && x.LastName.Length < 6
                     select x;
 
             return q;

@@ -28,29 +28,29 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
             return parliamentLogic.GetAllRulingParties();
         }
 
-        // GET: stat/getshortnamedmembers
-        [HttpGet]
-        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId, int maxNameLength)
+        // GET: stat/getshortnamedmembers/2
+        [HttpGet("{partyId}")]
+        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId)
         {
-            return partyLogic.GetShortNamedMembers(partyId, maxNameLength);
+            return partyLogic.GetShortNamedMembers(partyId);
         }
 
-        // GET: stat/getseniormembers
-        [HttpGet]
+        // GET: stat/getseniormembers/2
+        [HttpGet("{partyId}")]
         public IEnumerable<PartyMember> GetSeniorMembers(int partyId)
         {
             return partyLogic.GetSeniorMembers(partyId);
         }
 
-        // GET: stat/getjuniormembers
-        [HttpGet]
+        // GET: stat/getjuniormembers/2
+        [HttpGet("{partyId}")]
         public IEnumerable<PartyMember> GetJuniorMembers(int partyId)
         {
             return partyLogic.GetJuniorMembers(partyId);
         }
 
-        // GET: stat/getsameideologymembers
-        [HttpGet]
+        // GET: stat/getsameideologymembers/ideology
+        [HttpGet("{ideology}")]
         public IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology)
         {
             return partyLogic.GetSameIdeologyMembers(ideology);

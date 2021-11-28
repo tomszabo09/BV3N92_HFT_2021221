@@ -35,23 +35,16 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
 
         // POST /parliament
         [HttpPost]
-        public void Post(int id, string name, string rulingParty)
+        public void Post([FromBody] Parliament value)
         {
-            parliamentLogic.CreateParliament(id, name, rulingParty);
+            parliamentLogic.AddNewParliament(value);
         }
 
         // PUT /parliament
         [HttpPut]
-        public void PutName(int id, string newName)
+        public void Put([FromBody] Parliament value)
         {
-            parliamentLogic.ChangeName(id, newName);
-        }
-
-        // PUT /parliament
-        [HttpPut]
-        public void PutRulingParty(int id, string newParty)
-        {
-            parliamentLogic.ReplaceRulingParty(id, newParty);
+            parliamentLogic.UpdateParliament(value);
         }
 
         // DELETE /parliament/2

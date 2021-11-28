@@ -35,23 +35,16 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
 
         // POST /party
         [HttpPost]
-        public void Post(int partyId, int parliamentId, string partyName, string ideology)
+        public void Post([FromBody] Party value)
         {
-            partyLogic.CreateParty(partyId, parliamentId, partyName, ideology);
+            partyLogic.AddNewParty(value);
         }
 
         // PUT /party
         [HttpPut]
-        public void PutName(int id, string newName)
+        public void Put([FromBody] Party value)
         {
-            partyLogic.ChangePartyName(id, newName);
-        }
-
-        // PUT /party
-        [HttpPut]
-        public void PutIdeology(int id, string newIdeology)
-        {
-            partyLogic.ChangeIdeology(id, newIdeology);
+            partyLogic.UpdateParty(value);
         }
 
         // DELETE /party/2

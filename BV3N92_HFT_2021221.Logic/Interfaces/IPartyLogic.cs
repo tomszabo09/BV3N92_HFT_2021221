@@ -28,5 +28,9 @@ namespace BV3N92_HFT_2021221.Logic
         IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology);
 
         IList<Party> GetAllParties();
+
+        void AddNewParty(Party party);
+
+        void UpdateParty(Party party);
     }
 }

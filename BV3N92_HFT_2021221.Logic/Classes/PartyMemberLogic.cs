@@ -11,10 +11,12 @@ namespace BV3N92_HFT_2021221.Logic
     public class PartyMemberLogic : IPartyMemberLogic
     {
         IPartyMemberRepository memberRepo;
+        IPartyRepository partyRepo;
 
-        public PartyMemberLogic(IPartyMemberRepository repo)
+        public PartyMemberLogic(IPartyMemberRepository repo, IPartyRepository partyRepo)
         {
             this.memberRepo = repo;
+            this.partyRepo = partyRepo;
         }
 
         public void ChangeMemberAge(int memberId, int newAge)
@@ -87,7 +89,7 @@ namespace BV3N92_HFT_2021221.Logic
             }
             else if (age < 0)
             {
-                throw new Exception("Invalid age value!");
+                throw new Exception("Invalid age value! Age pool: 18-70");
             }
             else if (age < 18 || age > 70)
             {
@@ -97,8 +99,14 @@ namespace BV3N92_HFT_2021221.Logic
             {
                 throw new Exception("Invalid Party ID!");
             }
-            else
-                memberRepo.CreateMember(memberId, lastName, age, partyId);
+
+            foreach (var item in partyRepo.GetAll().ToList())
+            {
+                if (item.PartyID.Equals(partyId))
+                {
+                        memberRepo.CreateMember(memberId, lastName, age, partyId);
+                    }
+            }
         }
 
         public void DeleteMember(int memberId)
@@ -149,6 +157,68 @@ namespace BV3N92_HFT_2021221.Logic
             }
             else
                 return memberRepo.GetOne(id);
+        }
+
+        public void AddNewMember(PartyMember member)
+        {
+            foreach (var item in GetAllMembers())
+            {
+                if (item.MemberID.Equals(member.MemberID))
+                {
+                    throw new Exception($"A member with the ID '{member.MemberID}' already exists!");
+                }
+            }
+
+            if (member.MemberID < 0)
+            {
+                throw new Exception("Invalid Member ID!");
+            }
+            else if (member.LastName.Equals(string.Empty))
+            {
+                throw new Exception("Name has to be given!");
+            }
+            else if (member.Age < 0)
+            {
+                throw new Exception("Invalid age value! Age pool: 18-70");
+            }
+            else if (member.Age < 18 || member.Age > 70)
+            {
+                throw new Exception("The age pool is between 18 and 70 years!");
+            }
+            else if (member.PartyID < 0)
+            {
+                throw new Exception("Invalid Party ID!");
+            }
+
+            foreach (var item in partyRepo.GetAll().ToList())
+            {
+                if (item.PartyID.Equals(member.PartyID))
+                {
+                    memberRepo.AddNewMember(member);
+                }
+            }
+        }
+
+        public void UpdateMember(PartyMember member)
+        {
+            if (member.MemberID < 0)
+            {
+                throw new Exception("Invalid ID!");
+            }
+            else if (GetMemberByID(member.MemberID).Age < 18 || GetMemberByID(member.MemberID).Age > 70)
+            {
+                throw new Exception("The age pool is between 18 and 70 years!");
+            }
+            else if (GetMemberByID(member.MemberID).LastName.Equals(string.Empty))
+            {
+                throw new Exception("Name has to be given!");
+            }
+            else if (GetAllMembers().Any(x => x.MemberID == member.MemberID))
+            {
+                memberRepo.UpdateMember(member);
+            }
+            else
+                throw new Exception($"No such party member with ID '{member.MemberID}'!");
         }
     }
 }

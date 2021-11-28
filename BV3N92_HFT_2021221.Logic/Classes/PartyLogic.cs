@@ -12,11 +12,13 @@ namespace BV3N92_HFT_2021221.Logic
     {
         IPartyRepository partyRepo;
         IPartyMemberRepository partyMemberRepo;
+        IParliamentRepository parliamentRepo;
 
-        public PartyLogic(IPartyRepository repo, IPartyMemberRepository partyMemberRepository)
+        public PartyLogic(IPartyRepository repo, IPartyMemberRepository partyMemberRepository, IParliamentRepository parliamentRepo)
         {
             this.partyRepo = repo;
             this.partyMemberRepo = partyMemberRepository;
+            this.parliamentRepo = parliamentRepo;
         }
 
         public void ChangeIdeology(int partyId, string newIdeology)
@@ -25,7 +27,7 @@ namespace BV3N92_HFT_2021221.Logic
             {
                 throw new Exception("Invalid ID!");
             }
-            else if (newIdeology.ToString().Equals(string.Empty))
+            else if (newIdeology.Equals(string.Empty))
             {
                 throw new Exception("Ideology has to be given!");
             }
@@ -85,7 +87,7 @@ namespace BV3N92_HFT_2021221.Logic
             {
                 throw new Exception("Name has to be given!");
             }
-            else if (ideology.ToString().Equals(string.Empty))
+            else if (ideology.Equals(string.Empty))
             {
                 throw new Exception("Ideology has to be given!");
             }
@@ -181,6 +183,76 @@ namespace BV3N92_HFT_2021221.Logic
                     select x;
 
             return q;
+        }
+
+        public void AddNewParty(Party party)
+        {
+            foreach (var item in GetAllParties())
+            {
+                if (item.PartyName.Equals(party.PartyName))
+                {
+                    throw new Exception($"A party with the name '{party.PartyName}' already exists!");
+                }
+            }
+
+            if (party.ParliamentID < 0)
+            {
+                throw new Exception("Invalid Parliament ID!");
+            }
+            else if (party.PartyName.Equals(string.Empty))
+            {
+                throw new Exception("Name has to be given!");
+            }
+            else if (party.Ideology.Equals(string.Empty))
+            {
+                throw new Exception("Ideology has to be given!");
+            }
+            else if (!party.Ideology.Equals(Ideologies.Socialist.ToString()) && !party.Ideology.Equals(Ideologies.Conservative.ToString()) && !party.Ideology.Equals(Ideologies.Nationalist.ToString()))
+            {
+                throw new Exception($"Non-existent ideology! Ideology pool: {Ideologies.Socialist}, {Ideologies.Conservative}, {Ideologies.Nationalist}");
+            }
+
+            foreach (var item in parliamentRepo.GetAll().ToList())
+            {
+                if (item.ParliamentID.Equals(party.ParliamentID))
+                {
+                    partyRepo.AddNewParty(party);
+                }
+            }
+        }
+
+        public void UpdateParty(Party party)
+        {
+            if (party.PartyID < 0)
+            {
+                throw new Exception("Invalid ID!");
+            }
+            else if (party.Ideology.Equals(string.Empty))
+            {
+                throw new Exception("Ideology has to be given!");
+            }
+            else if (!party.Ideology.Equals(Ideologies.Socialist.ToString()) && !party.Ideology.Equals(Ideologies.Conservative.ToString()) && !party.Ideology.Equals(Ideologies.Nationalist.ToString()))
+            {
+                throw new Exception($"Non-existent ideology! Ideology pool: {Ideologies.Socialist}, {Ideologies.Conservative}, {Ideologies.Nationalist}");
+            }
+            else if (GetPartyByID(party.PartyID).Ideology.Equals(party.Ideology))
+            {
+                throw new Exception("New ideology cannot match old one!");
+            }
+            else if (party.PartyName.Equals(string.Empty))
+            {
+                throw new Exception("Name has to be given!");
+            }
+            else if (GetPartyByID(party.PartyID).PartyName.Equals(party.PartyName))
+            {
+                throw new Exception("New name cannot match old one!");
+            }
+            else if (GetAllParties().Any(x => x.PartyID == party.PartyID))
+            {
+                partyRepo.UpdateParty(party);
+            }
+            else
+                throw new Exception($"No such party with ID '{party.PartyID}'!");
         }
     }
 }

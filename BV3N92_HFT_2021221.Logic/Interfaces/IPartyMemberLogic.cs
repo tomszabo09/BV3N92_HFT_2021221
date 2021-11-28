@@ -22,5 +22,9 @@ namespace BV3N92_HFT_2021221.Logic
         void DeleteMember(int memberId);
 
         IList<PartyMember> GetAllMembers();
+
+        void AddNewMember(PartyMember member);
+
+        void UpdateMember(PartyMember member);
     }
 }

@@ -16,5 +16,9 @@ namespace BV3N92_HFT_2021221.Repository
         void ChangeIdeology(int partyId, string newIdeology);
 
         void DeleteParty(int partyId);
+
+        void AddNewParty(Party party);
+
+        void UpdateParty(Party party);
     }
 }

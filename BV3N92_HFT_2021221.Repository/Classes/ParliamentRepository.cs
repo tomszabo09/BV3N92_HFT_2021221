@@ -44,5 +44,21 @@ namespace BV3N92_HFT_2021221.Repository
         {
             return GetAll().SingleOrDefault(x => x.ParliamentID.Equals(id));
         }
+
+        public void AddNewParliament(Parliament parliament)
+        {
+            ctx.Add(parliament);
+            ctx.SaveChanges();
+        }
+
+        public void UpdateParliament(Parliament parliament)
+        {
+            var toUpdate = GetOne(parliament.ParliamentID);
+
+            toUpdate.ParliamentName = parliament.ParliamentName;
+            toUpdate.RulingParty = parliament.RulingParty;
+
+            ctx.SaveChanges();
+        }
     }
 }

@@ -22,5 +22,9 @@ namespace BV3N92_HFT_2021221.Logic
         IEnumerable<Party> GetAllRulingParties();
 
         IList<Parliament> GetAllParliaments();
+
+        void AddNewParliament(Parliament parliament);
+
+        void UpdateParliament(Parliament parliament);
     }
 }

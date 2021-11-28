@@ -18,5 +18,9 @@ namespace BV3N92_HFT_2021221.Repository
         void ChangeMemberAllegiance(int memberId, int newPartyId);
 
         void DeleteMember(int memberId);
+
+        void AddNewMember(PartyMember member);
+
+        void UpdateMember(PartyMember member);
     }
 }

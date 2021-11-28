@@ -16,5 +16,9 @@ namespace BV3N92_HFT_2021221.Repository
         void ReplaceRulingParty(int parliamentId, string newParty);
 
         void DeleteParliament(int parliamentId);
+
+        void AddNewParliament(Parliament parliament);
+
+        void UpdateParliament(Parliament parliament);
     }
 }

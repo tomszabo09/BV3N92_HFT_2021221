@@ -40,7 +40,6 @@ namespace BV3N92_HFT_2021221.Logic
             }
             else
                 throw new Exception($"No such parliament with ID '{parliamentId}'!");
-
         }
 
         public void CreateParliament(int parliamentId, string name, string rulingParty)
@@ -145,6 +144,58 @@ namespace BV3N92_HFT_2021221.Logic
             }
             else
                 parliamentRepo.ReplaceRulingParty(parliamentId, newParty);
+        }
+
+        public void AddNewParliament(Parliament parliament)
+        {
+            foreach (var item in GetAllParliaments())
+            {
+                if (item.ParliamentName.Equals(parliament.ParliamentName))
+                {
+                    throw new Exception($"A parliament with the name '{parliament.ParliamentName}' already exists!");
+                }
+            }
+
+            if (parliament.ParliamentName.Equals(string.Empty))
+            {
+                throw new Exception("Name has to be given!");
+            }
+            else if (parliament.RulingParty.Equals(string.Empty))
+            {
+                throw new Exception("Ruling party has to be given!");
+            }
+            else
+                parliamentRepo.AddNewParliament(parliament);
+        }
+
+        public void UpdateParliament(Parliament parliament)
+        {
+            if (parliament.ParliamentID < 0)
+            {
+                throw new Exception("Invalid ID!");
+            }
+            else if (parliament.ParliamentName.Equals(string.Empty))
+            {
+                throw new Exception("Name has to be given!");
+            }
+            else if (parliament.RulingParty.Equals(string.Empty))
+            {
+                throw new Exception("New name has to be given!");
+            }
+            else if (GetAllParliaments().Any(x => x.ParliamentName == parliament.ParliamentName))
+            {
+                throw new Exception($"A parliament with the name '{parliament.ParliamentName}' already exists!");
+            }
+            else if (GetParliamentByID(parliament.ParliamentID).RulingParty.Equals(parliament.RulingParty))
+            {
+                throw new Exception("New ruling party cannot have the same name as the old one!");
+            }
+            else if (GetAllParliaments().Any(x => x.ParliamentID == parliament.ParliamentID))
+            {
+                parliamentRepo.UpdateParliament(parliament);
+            }
+            else
+                throw new Exception($"No such parliament with ID '{parliament.ParliamentID}'!");
         }
     }
 }

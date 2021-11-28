@@ -50,5 +50,22 @@ namespace BV3N92_HFT_2021221.Repository
         {
             return GetAll().SingleOrDefault(x => x.MemberID.Equals(id));
         }
+
+        public void AddNewMember(PartyMember member)
+        {
+            ctx.Add(member);
+            ctx.SaveChanges();
+        }
+
+        public void UpdateMember(PartyMember member)
+        {
+            var toUpdate = GetOne(member.MemberID);
+
+            toUpdate.LastName = member.LastName;
+            toUpdate.Age = member.Age;
+            toUpdate.PartyID = member.PartyID;
+
+            ctx.SaveChanges();
+        }
     }
 }

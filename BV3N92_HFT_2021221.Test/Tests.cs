@@ -53,8 +53,8 @@ namespace BV3N92_HFT_2021221.Test
             mockedPartyMemberRepo.Setup(x => x.GetAll()).Returns(this.FakePartyMemberObjects);
 
             this.parliamentLogic = new ParliamentLogic(mockedParliamentRepo.Object, mockedPartyRepo.Object);
-            this.partyLogic = new PartyLogic(mockedPartyRepo.Object, mockedPartyMemberRepo.Object);
-            this.partyMemberLogic = new PartyMemberLogic(mockedPartyMemberRepo.Object);
+            this.partyLogic = new PartyLogic(mockedPartyRepo.Object, mockedPartyMemberRepo.Object, mockedParliamentRepo.Object);
+            this.partyMemberLogic = new PartyMemberLogic(mockedPartyMemberRepo.Object, mockedPartyRepo.Object);
         }
 
         #region Basic Tests

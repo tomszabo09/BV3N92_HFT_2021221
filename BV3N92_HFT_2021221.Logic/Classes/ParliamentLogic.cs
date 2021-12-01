@@ -82,7 +82,7 @@ namespace BV3N92_HFT_2021221.Logic
                     i++;
                 }
             }
-            //findfirst
+            
             if (parliamentId < 0)
             {
                 throw new Exception("Invalid ID!");
@@ -102,7 +102,6 @@ namespace BV3N92_HFT_2021221.Logic
 
         public IEnumerable<Party> GetAllRulingParties()
         {
-
             var q = from party in partyRepo.GetAll().ToList()
                     where GetAllParliaments().ToList().FirstOrDefault(parliament => parliament.RulingParty == party.PartyName) != null
                     select party;

@@ -104,8 +104,8 @@ namespace BV3N92_HFT_2021221.Logic
             {
                 if (item.PartyID.Equals(partyId))
                 {
-                        memberRepo.CreateMember(memberId, lastName, age, partyId);
-                    }
+                    memberRepo.CreateMember(memberId, lastName, age, partyId);
+                }
             }
         }
 

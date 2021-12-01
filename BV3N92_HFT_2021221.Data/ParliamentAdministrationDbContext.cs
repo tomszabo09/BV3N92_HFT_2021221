@@ -34,9 +34,9 @@ namespace BV3N92_HFT_2021221.Data
                     .HasForeignKey(party => party.ParliamentID)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasMany(party => party.PartyMembers)
-                .WithOne(partymember => partymember.Party)
-                .HasForeignKey(partymembers => partymembers.PartyID);
+                entity.HasMany(partymember => partymember.PartyMembers)
+                .WithOne(party => party.Party)
+                .HasForeignKey(partymember => partymember.PartyID);
             });
 
             Parliament ger = new Parliament() { ParliamentID = 1, ParliamentName = "Reichstag", RulingParty = "Deutschkonservative Partei" };

@@ -12,6 +12,8 @@ namespace BV3N92_HFT_2021221.Client
 
             RestService rest = new RestService("http://localhost:41126");
 
+            Menu(rest);
+
             //rest.Post<Parliament>(new Parliament()
             //{
             //    ParliamentName = "Parliament of Tests",
@@ -32,7 +34,7 @@ namespace BV3N92_HFT_2021221.Client
             //    PartyID = 5
             //}, "partymember");
 
-            //rest.Delete(4, "parliament");
+            //rest.Delete(4, "parliament"); ?????
             //rest.Delete(3, "party");
             //rest.Delete(3, "partymember");
 
@@ -68,12 +70,9 @@ namespace BV3N92_HFT_2021221.Client
             var parliaments = rest.Get<Parliament>("parliament");
             var parties = rest.Get<Party>("party");
             var members = rest.Get<PartyMember>("partymember");
-
-
-            ;
         }
 
-        private void Menu()
+        private static void Menu(RestService rest)
         {
             #region Menu UI
 
@@ -83,19 +82,19 @@ namespace BV3N92_HFT_2021221.Client
             Console.WriteLine("Each parliament has multiple parties, of which one of them is the ruling party.");
             Console.WriteLine("Each party has an ideology and multiple junior and senior party members.");
             Console.WriteLine("The following actions are availabe:");
-            Console.WriteLine("___________________________\n");
-            Console.WriteLine("1. Create entity");
-            Console.WriteLine("2. Create entity");
-            Console.WriteLine("3. Create entity");
-            Console.WriteLine("4. Create entity");
-            Console.WriteLine("5. Create entity");
-            Console.WriteLine("6. Create entity");
-            Console.WriteLine("7. Create entity");
-            Console.WriteLine("8. Create entity");
-            Console.WriteLine("9. Create entity");
-            Console.WriteLine("___________________________\n");
+            Console.WriteLine("______________________________________________________\n");
+            Console.WriteLine("1. Create entities");
+            Console.WriteLine("2. Read entities");
+            Console.WriteLine("3. Update entities");
+            Console.WriteLine("4. Delete entities");
+            Console.WriteLine("5. Get all ruling parties");
+            Console.WriteLine("6. Get all members of a given party with short names (less than 6 characters)");
+            Console.WriteLine("7. Get all senior members of a given party (over the age of 50)");
+            Console.WriteLine("8. Get all junior members of a given party (under the age of 40)");
+            Console.WriteLine("9. Get all members that represent a given ideology");
+            Console.WriteLine("______________________________________________________\n");
             Console.WriteLine("You can navigate the menu with the corresponding number keys.");
-            Console.WriteLine("\nESC: Kilépés");
+            Console.WriteLine("\nESC: Exit");
 
             #endregion
 
@@ -110,10 +109,86 @@ namespace BV3N92_HFT_2021221.Client
                     Console.WriteLine("2. Create Party");
                     Console.WriteLine("3. Create Party Member");
 
+                    ConsoleKey subkey = Console.ReadKey().Key;
+
+                    if (subkey == ConsoleKey.D1 || subkey == ConsoleKey.NumPad1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Parliament must have a unique name!");
+                        Console.WriteLine("Please enter data (hit enter after each property)");
+                        Console.Write($"Parliament name: ");
+                        string name = Console.ReadLine();
+                        Console.Write($"Ruling party: ");
+                        string rp = Console.ReadLine();
+
+                        rest.Post<Parliament>(new Parliament()
+                        {
+                            ParliamentName = name,
+                            RulingParty = rp
+                        }, "parliament");
+                        Console.WriteLine("Parliament successfully added to database!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D2 || subkey == ConsoleKey.NumPad2)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Party must have a unique name and be part of an existing parliament!");
+                        Console.WriteLine("Please enter data (hit enter after each property)");
+                        Console.Write($"Parliament ID: ");
+                        int id = int.Parse(Console.ReadLine());
+                        Console.Write($"Party name: ");
+                        string name = Console.ReadLine();
+                        Console.WriteLine("Ideology pool: Socialist, Conservative, Nationalist (watch out for capital letters!)");
+                        Console.Write($"Party ideology: ");
+                        string ideology = Console.ReadLine();
+
+                        rest.Post<Party>(new Party()
+                        {
+                            ParliamentID = id,
+                            PartyName = name,
+                            Ideology = ideology
+                        }, "party");
+                        Console.WriteLine("Party successfully added to database!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D3 || subkey == ConsoleKey.NumPad3)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Member must have an age value between 18 and 70 years and be part of an existing party!");
+                        Console.WriteLine("Please enter data (hit enter after each property)");
+                        Console.Write($"Last name: ");
+                        string name = Console.ReadLine();
+                        Console.Write($"Age: ");
+                        int age = int.Parse(Console.ReadLine());
+                        Console.Write($"Party ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        rest.Post<PartyMember>(new PartyMember()
+                        {
+                            LastName = name,
+                            Age = age,
+                            PartyID = id
+                        }, "partymember");
+                        Console.WriteLine("Party member successfully added to database!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
                     Console.Clear();
-                    Menu();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D2 || key == ConsoleKey.NumPad2)
                 {
@@ -122,10 +197,49 @@ namespace BV3N92_HFT_2021221.Client
                     Console.WriteLine("2. Get Party entities");
                     Console.WriteLine("3. Get Party Member entities");
 
+                    ConsoleKey subkey = Console.ReadKey().Key;
+
+                    if (subkey == ConsoleKey.D1 || subkey == ConsoleKey.NumPad1)
+                    {
+                        Console.Clear();
+                        foreach (var item in rest.Get<Parliament>("parliament"))
+                        {
+                            Console.WriteLine($"ID: {item.ParliamentID}\nName: {item.ParliamentName}\nRuling Party: {item.RulingParty}\n");
+                        }
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D2 || subkey == ConsoleKey.NumPad2)
+                    {
+                        Console.Clear();
+                        foreach (var item in rest.Get<Party>("party"))
+                        {
+                            Console.WriteLine($"Party ID: {item.PartyID}\nParliament ID: {item.ParliamentID}\nName: {item.PartyName}\nIdeology: {item.Ideology}\n");
+                        }
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D3 || subkey == ConsoleKey.NumPad3)
+                    {
+                        Console.Clear();
+                        foreach (var item in rest.Get<PartyMember>("partymember"))
+                        {
+                            Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                        }
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
                     Console.Clear();
-                    Menu();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D3 || key == ConsoleKey.NumPad3)
                 {
@@ -134,10 +248,94 @@ namespace BV3N92_HFT_2021221.Client
                     Console.WriteLine("2. Update Party entity");
                     Console.WriteLine("3. Update Party Member entity");
 
+                    ConsoleKey subkey = Console.ReadKey().Key;
+
+                    if (subkey == ConsoleKey.D1 || subkey == ConsoleKey.NumPad1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Only existing parliaments can be modified, they must have a unique name!");
+                        Console.Write($"Parliament ID: ");
+                        int id = int.Parse(Console.ReadLine());
+                        Console.Write($"Parliament name: ");
+                        string name = Console.ReadLine();
+                        Console.Write($"Ruling party: ");
+                        string rp = Console.ReadLine();
+
+                        rest.Put<Parliament>(new Parliament()
+                        {
+                            ParliamentID = id,
+                            ParliamentName = name,
+                            RulingParty = rp
+                        }, "parliament");
+                        Console.WriteLine("Parliament successfully modified!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D2 || subkey == ConsoleKey.NumPad2)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Only existing parties can be modified, they must have a unique name and be part of an existing parliament!");
+                        Console.WriteLine("Please enter data (hit enter after each property)");
+                        Console.Write($"Party ID: ");
+                        int pid = int.Parse(Console.ReadLine());
+                        Console.Write($"Parliament ID: ");
+                        int id = int.Parse(Console.ReadLine());
+                        Console.Write($"Party name: ");
+                        string name = Console.ReadLine();
+                        Console.WriteLine("Ideology pool: Socialist, Conservative, Nationalist (watch out for capital letters!)");
+                        Console.Write($"Party ideology: ");
+                        string ideology = Console.ReadLine();
+
+                        rest.Put<Party>(new Party()
+                        {
+                            PartyID = pid,
+                            ParliamentID = id,
+                            PartyName = name,
+                            Ideology = ideology
+                        }, "party");
+                        Console.WriteLine("Party successfully modified!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D3 || subkey == ConsoleKey.NumPad3)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Only existing members can be modified, they must have an age value between 18 and 70 years and be part of an existing party!");
+                        Console.WriteLine("Please enter data (hit enter after each property)");
+                        Console.Write($"Member ID: ");
+                        int mid = int.Parse(Console.ReadLine());
+                        Console.Write($"Last name: ");
+                        string name = Console.ReadLine();
+                        Console.Write($"Age: ");
+                        int age = int.Parse(Console.ReadLine());
+                        Console.Write($"Party ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        rest.Put<PartyMember>(new PartyMember()
+                        {
+                            MemberID = mid,
+                            LastName = name,
+                            Age = age,
+                            PartyID = id
+                        }, "partymember");
+                        Console.WriteLine("Party member successfully modified!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
                     Console.Clear();
-                    Menu();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D4 || key == ConsoleKey.NumPad4)
                 {
@@ -146,36 +344,140 @@ namespace BV3N92_HFT_2021221.Client
                     Console.WriteLine("2. Delete Party entity");
                     Console.WriteLine("3. Delete Party Member entity");
 
+                    ConsoleKey subkey = Console.ReadKey().Key;
+
+                    if (subkey == ConsoleKey.D1 || subkey == ConsoleKey.NumPad1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Only an already existing parliament can be deleted!");
+                        Console.Write($"Parliament ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        rest.Delete(id, "parliament");
+                        Console.WriteLine("Parliament successfully deleted!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D2 || subkey == ConsoleKey.NumPad2)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Only an already existing party can be deleted!");
+                        Console.Write($"Party ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        rest.Delete(id, "party");
+                        Console.WriteLine("Party successfully deleted!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D3 || subkey == ConsoleKey.NumPad3)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Only an already existing member can be deleted!");
+                        Console.Write($"Member ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        rest.Delete(id, "partymember");
+                        Console.WriteLine("Member successfully deleted!");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
                     Console.Clear();
-                    Menu();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D5 || key == ConsoleKey.NumPad5)
                 {
-
+                    Console.Clear();
+                    foreach (var item in rest.Get<Party>("stat/getallrulingparties"))
+                    {
+                        Console.WriteLine($"Party ID: {item.PartyID}\nParliament ID: {item.ParliamentID}\nName: {item.PartyName}\nIdeology: {item.Ideology}\n");
+                    }
+                    Console.WriteLine("\nPress any key to return to main menu...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D6 || key == ConsoleKey.NumPad6)
                 {
+                    Console.Clear();
+                    Console.Write("Party ID: ");
+                    int id = int.Parse(Console.ReadLine());
+                    Console.WriteLine("___________________________\n");
 
+                    foreach (var item in rest.GetById<PartyMember>(id, "stat/getshortnamedmembers"))
+                    {
+                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                    }
+
+                    Console.WriteLine("\nPress any key to return to main menu...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D7 || key == ConsoleKey.NumPad7)
                 {
+                    Console.Clear();
+                    Console.Write("Party ID: ");
+                    int id = int.Parse(Console.ReadLine());
+                    Console.WriteLine("___________________________\n");
 
+                    foreach (var item in rest.GetById<PartyMember>(id, "stat/getseniormembers"))
+                    {
+                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                    }
+                    Console.WriteLine("\nPress any key to return to main menu...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D8 || key == ConsoleKey.NumPad8)
                 {
+                    Console.Clear();
+                    Console.Write("Party ID: ");
+                    int id = int.Parse(Console.ReadLine());
+                    Console.WriteLine("___________________________\n");
 
+                    foreach (var item in rest.GetById<PartyMember>(id, "stat/getjuniormembers"))
+                    {
+                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                    }
+                    Console.WriteLine("\nPress any key to return to main menu...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Menu(rest);
                 }
                 else if (key == ConsoleKey.D9 || key == ConsoleKey.NumPad9)
                 {
+                    Console.Clear();
+                    Console.WriteLine("Ideology pool: Socialist, Conservative, Nationalist (watch out for capital letters!)");
+                    Console.Write("Ideology: ");
+                    string ideology = Console.ReadLine();
+                    Console.WriteLine("___________________________\n");
 
+                    foreach (var item in rest.GetSameIdeologies<PartyMember>(ideology, "stat/getsameideologymembers"))
+                    {
+                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                    }
+                    Console.WriteLine("\nPress any key to return to main menu...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Menu(rest);
                 }
+            } while (!key.Equals(ConsoleKey.Escape));
 
-
-
-
-            } while (key.Equals(ConsoleKey.Escape));
+            Environment.Exit(0);
         }
     }
 }

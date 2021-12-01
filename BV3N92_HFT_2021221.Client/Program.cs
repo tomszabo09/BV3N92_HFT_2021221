@@ -196,6 +196,9 @@ namespace BV3N92_HFT_2021221.Client
                     Console.WriteLine("1. Get Parliament entities");
                     Console.WriteLine("2. Get Party entities");
                     Console.WriteLine("3. Get Party Member entities");
+                    Console.WriteLine("4. Get Parliament entity by ID");
+                    Console.WriteLine("5. Get Party entity by ID");
+                    Console.WriteLine("6. Get Party Member entity by ID");
 
                     ConsoleKey subkey = Console.ReadKey().Key;
 
@@ -230,6 +233,48 @@ namespace BV3N92_HFT_2021221.Client
                         {
                             Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
                         }
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D4 || subkey == ConsoleKey.NumPad4)
+                    {
+                        Console.Clear();
+                        Console.Write("Parliament ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        var item = rest.GetSingle<Parliament>($"parliament/{id}");
+                        Console.WriteLine($"\nParliament name: {item.ParliamentName}\nRuling party: {item.RulingParty}\n");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D5 || subkey == ConsoleKey.NumPad5)
+                    {
+                        Console.Clear();
+                        Console.Write("Party ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        var item = rest.GetSingle<Party>($"party/{id}");
+                        Console.WriteLine($"\nParliament ID: {item.ParliamentID}\nParty name: {item.PartyName}\nIdeology: {item.Ideology}\n");
+
+                        Console.WriteLine("\nPress any key to return to main menu...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Menu(rest);
+                    }
+                    else if (subkey == ConsoleKey.D6 || subkey == ConsoleKey.NumPad6)
+                    {
+                        Console.Clear();
+                        Console.Write("Member ID: ");
+                        int id = int.Parse(Console.ReadLine());
+
+                        var item = rest.GetSingle<PartyMember>($"partymember/{id}");
+                        Console.WriteLine($"\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+
                         Console.WriteLine("\nPress any key to return to main menu...");
                         Console.ReadKey();
                         Console.Clear();
@@ -475,6 +520,12 @@ namespace BV3N92_HFT_2021221.Client
                     Console.Clear();
                     Menu(rest);
                 }
+                else
+                {
+                    Console.Clear();
+                    Menu(rest);
+                }
+
             } while (!key.Equals(ConsoleKey.Escape));
 
             Environment.Exit(0);

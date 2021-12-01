@@ -32,7 +32,6 @@ namespace BV3N92_HFT_2021221.Client
             {
                 throw new ArgumentException("Endpoint is not available!");
             }
-
         }
 
         public List<T> Get<T>(string endpoint)
@@ -79,17 +78,6 @@ namespace BV3N92_HFT_2021221.Client
             return item;
         }
 
-        public T Get<T>(int id, string endpoint)
-        {
-            T item = default(T);
-            HttpResponseMessage response = client.GetAsync(endpoint + "/" + id.ToString()).GetAwaiter().GetResult();
-            if (response.IsSuccessStatusCode)
-            {
-                item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
-            }
-            return item;
-        }
-
         public void Post<T>(T item, string endpoint)
         {
             HttpResponseMessage response =
@@ -110,7 +98,6 @@ namespace BV3N92_HFT_2021221.Client
         {
             HttpResponseMessage response =
                 client.PutAsJsonAsync(endpoint, item).GetAwaiter().GetResult();
-
 
             response.EnsureSuccessStatusCode();
         }

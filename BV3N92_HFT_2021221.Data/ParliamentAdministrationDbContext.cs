@@ -31,8 +31,7 @@ namespace BV3N92_HFT_2021221.Data
             {
                 entity.HasOne(party => party.Parliament)
                     .WithMany(parliament => parliament.Parties)
-                    .HasForeignKey(party => party.ParliamentID)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .HasForeignKey(party => party.ParliamentID);
 
                 entity.HasMany(partymember => partymember.PartyMembers)
                 .WithOne(party => party.Party)

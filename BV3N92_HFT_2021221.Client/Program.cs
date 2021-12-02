@@ -1,6 +1,7 @@
 ﻿using BV3N92_HFT_2021221.Models;
 using System;
 using System.Threading;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BV3N92_HFT_2021221.Client
 {
@@ -520,7 +521,7 @@ namespace BV3N92_HFT_2021221.Client
                     Console.Clear();
                     Menu(rest);
                 }
-                else
+                else if (!key.Equals(ConsoleKey.Escape))
                 {
                     Console.Clear();
                     Menu(rest);

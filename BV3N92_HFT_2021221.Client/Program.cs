@@ -1,7 +1,6 @@
 ﻿using BV3N92_HFT_2021221.Models;
 using System;
 using System.Threading;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BV3N92_HFT_2021221.Client
 {
@@ -14,6 +13,8 @@ namespace BV3N92_HFT_2021221.Client
             RestService rest = new RestService("http://localhost:41126");
 
             Menu(rest);
+
+            #region QuickTest Menu options
 
             //rest.Post<Parliament>(new Parliament()
             //{
@@ -71,6 +72,8 @@ namespace BV3N92_HFT_2021221.Client
             var parliaments = rest.Get<Parliament>("parliament");
             var parties = rest.Get<Party>("party");
             var members = rest.Get<PartyMember>("partymember");
+
+            #endregion
         }
 
         private static void Menu(RestService rest)

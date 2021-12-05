@@ -21,39 +21,39 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
             this.partyLogic = partyLogic;
         }
 
-        // GET: stat/getallrulingparties
+        // GET: stat/representativesperparliament
         [HttpGet]
-        public IEnumerable<Party> GetAllRulingParties()
+        public IEnumerable<KeyValuePair<string, int>> RepresentativesPerParliament()
         {
-            return parliamentLogic.GetAllRulingParties();
+            return parliamentLogic.RepresentativesPerParliament();
         }
 
-        // GET: stat/getshortnamedmembers/2
-        [HttpGet("{partyId}")]
-        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId)
+        // GET: stat/shortnamedmembersperparty
+        [HttpGet]
+        public IEnumerable<KeyValuePair<string, int>> ShortNamedMembersPerParty()
         {
-            return partyLogic.GetShortNamedMembers(partyId);
+            return partyLogic.ShortNamedMembersPerParty();
         }
 
-        // GET: stat/getseniormembers/2
-        [HttpGet("{partyId}")]
-        public IEnumerable<PartyMember> GetSeniorMembers(int partyId)
+        // GET: stat/seniormembersperparty
+        [HttpGet]
+        public IEnumerable<KeyValuePair<string, int>> SeniorMembersPerParty()
         {
-            return partyLogic.GetSeniorMembers(partyId);
+            return partyLogic.SeniorMembersPerParty();
         }
 
-        // GET: stat/getjuniormembers/2
-        [HttpGet("{partyId}")]
-        public IEnumerable<PartyMember> GetJuniorMembers(int partyId)
+        // GET: stat/juniormembersperparty
+        [HttpGet]
+        public IEnumerable<KeyValuePair<string, int>> JuniorMembersPerParty()
         {
-            return partyLogic.GetJuniorMembers(partyId);
+            return partyLogic.JuniorMembersPerParty();
         }
 
-        // GET: stat/getsameideologymembers/ideology
-        [HttpGet("{ideology}")]
-        public IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology)
+        // GET: stat/avgageofmembersperparty
+        [HttpGet]
+        public IEnumerable<KeyValuePair<string, double>> AVGAgeOfMembersPerParty()
         {
-            return partyLogic.GetSameIdeologyMembers(ideology);
+            return partyLogic.AVGAgeOfMembersPerParty();
         }
     }
 }

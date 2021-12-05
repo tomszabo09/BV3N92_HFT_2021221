@@ -1,5 +1,6 @@
 ﻿using BV3N92_HFT_2021221.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace BV3N92_HFT_2021221.Client
@@ -44,7 +45,7 @@ namespace BV3N92_HFT_2021221.Client
             //{
             //    ParliamentID = 1,
             //    ParliamentName = "Bundestag",
-            //    RulingParty = "NSDAP"
+            //    RulingParty = "SAP"
             //}, "parliament");
 
             //rest.Put<Party>(new Party()
@@ -63,11 +64,11 @@ namespace BV3N92_HFT_2021221.Client
             //    PartyID = 7
             //}, "partymember");
 
-            var rulingparties = rest.Get<Party>("stat/getallrulingparties");
-            var shortnamedmembers = rest.GetById<PartyMember>(1, "stat/getshortnamedmembers");
-            var seniormembers = rest.GetById<PartyMember>(1,"stat/getseniormembers");
-            var juniormembers = rest.GetById<PartyMember>(1,"stat/getjuniormembers");
-            var sameideologymembers = rest.GetSameIdeologies<PartyMember>(Ideologies.Nationalist.ToString(), "stat/getsameideologymembers");
+            var representativesperparliament = rest.Get<KeyValuePair<string, int>>("stat/representativesperparliament");
+            var shortnamedmembersperparty = rest.Get<KeyValuePair<string, int>>("stat/shortnamedmembersperparty");
+            var seniormembersperparty = rest.Get<KeyValuePair<string, int>>("stat/seniormembersperparty");
+            var juniormembersperparty = rest.Get<KeyValuePair<string, int>>("stat/juniormembersperparty");
+            var avgageofmembersperparty = rest.Get<KeyValuePair<string, double>>("stat/avgageofmembersperparty");
 
             var parliaments = rest.Get<Parliament>("parliament");
             var parties = rest.Get<Party>("party");
@@ -91,11 +92,11 @@ namespace BV3N92_HFT_2021221.Client
             Console.WriteLine("2. Read entities");
             Console.WriteLine("3. Update entities");
             Console.WriteLine("4. Delete entities");
-            Console.WriteLine("5. Get all ruling parties");
-            Console.WriteLine("6. Get all members of a given party with short names (less than 6 characters)");
-            Console.WriteLine("7. Get all senior members of a given party (over the age of 50)");
-            Console.WriteLine("8. Get all junior members of a given party (under the age of 40)");
-            Console.WriteLine("9. Get all members that represent a given ideology");
+            Console.WriteLine("5. Get number of representatives in each parliament");
+            Console.WriteLine("6. Get number of short named members (less than 6 characters) per party");
+            Console.WriteLine("7. Get number of senior members (over the age of 50) per party");
+            Console.WriteLine("8. Get number of junior members (under the age of 40) per party");
+            Console.WriteLine("9. Get average age of members per party");
             Console.WriteLine("______________________________________________________\n");
             Console.WriteLine("You can navigate the menu with the corresponding number keys.");
             Console.WriteLine("\nESC: Exit");
@@ -449,9 +450,9 @@ namespace BV3N92_HFT_2021221.Client
                 else if (key == ConsoleKey.D5 || key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
-                    foreach (var item in rest.Get<Party>("stat/getallrulingparties"))
+                    foreach (var item in rest.Get<KeyValuePair<string, int>>("stat/representativesperparliament"))
                     {
-                        Console.WriteLine($"Party ID: {item.PartyID}\nParliament ID: {item.ParliamentID}\nName: {item.PartyName}\nIdeology: {item.Ideology}\n");
+                        Console.WriteLine($"Parliament: {item.Key}\nNumber of representatives: {item.Value}\n");
                     }
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
@@ -461,15 +462,10 @@ namespace BV3N92_HFT_2021221.Client
                 else if (key == ConsoleKey.D6 || key == ConsoleKey.NumPad6)
                 {
                     Console.Clear();
-                    Console.Write("Party ID: ");
-                    int id = int.Parse(Console.ReadLine());
-                    Console.WriteLine("___________________________\n");
-
-                    foreach (var item in rest.GetById<PartyMember>(id, "stat/getshortnamedmembers"))
+                    foreach (var item in rest.Get<KeyValuePair<string, int>>("stat/shortnamedmembersperparty"))
                     {
-                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                        Console.WriteLine($"Party: {item.Key}\nNumber of short named members: {item.Value}\n");
                     }
-
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
                     Console.Clear();
@@ -478,13 +474,9 @@ namespace BV3N92_HFT_2021221.Client
                 else if (key == ConsoleKey.D7 || key == ConsoleKey.NumPad7)
                 {
                     Console.Clear();
-                    Console.Write("Party ID: ");
-                    int id = int.Parse(Console.ReadLine());
-                    Console.WriteLine("___________________________\n");
-
-                    foreach (var item in rest.GetById<PartyMember>(id, "stat/getseniormembers"))
+                    foreach (var item in rest.Get<KeyValuePair<string, int>>("stat/seniormembersperparty"))
                     {
-                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                        Console.WriteLine($"Party: {item.Key}\nNumber of senior members: {item.Value}\n");
                     }
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
@@ -494,13 +486,9 @@ namespace BV3N92_HFT_2021221.Client
                 else if (key == ConsoleKey.D8 || key == ConsoleKey.NumPad8)
                 {
                     Console.Clear();
-                    Console.Write("Party ID: ");
-                    int id = int.Parse(Console.ReadLine());
-                    Console.WriteLine("___________________________\n");
-
-                    foreach (var item in rest.GetById<PartyMember>(id, "stat/getjuniormembers"))
+                    foreach (var item in rest.Get<KeyValuePair<string, int>>("stat/juniormembersperparty"))
                     {
-                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                        Console.WriteLine($"Party: {item.Key}\nNumber of junior members: {item.Value}\n");
                     }
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();
@@ -510,14 +498,9 @@ namespace BV3N92_HFT_2021221.Client
                 else if (key == ConsoleKey.D9 || key == ConsoleKey.NumPad9)
                 {
                     Console.Clear();
-                    Console.WriteLine("Ideology pool: Socialist, Conservative, Nationalist (watch out for capital letters!)");
-                    Console.Write("Ideology: ");
-                    string ideology = Console.ReadLine();
-                    Console.WriteLine("___________________________\n");
-
-                    foreach (var item in rest.GetSameIdeologies<PartyMember>(ideology, "stat/getsameideologymembers"))
+                    foreach (var item in rest.Get<KeyValuePair<string, double>>("stat/avgageofmembersperparty"))
                     {
-                        Console.WriteLine($"ID: {item.MemberID}\nName: {item.LastName}\nAge: {item.Age}\nParty ID: {item.PartyID}\n");
+                        Console.WriteLine($"Party: {item.Key}\nAverage age of members: {item.Value}\n");
                     }
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();

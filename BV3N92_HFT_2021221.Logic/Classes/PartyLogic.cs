@@ -149,38 +149,38 @@ namespace BV3N92_HFT_2021221.Logic
                 return partyRepo.GetOne(id);
         }
 
-        public IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology)
+        public IEnumerable<KeyValuePair<string, int>> ShortNamedMembersPerParty()
         {
-            var q = from x in partyMemberRepo.GetAll().ToList()
-                    where GetAllParties().FirstOrDefault(party => party.PartyID == x.PartyID)?.Ideology == ideology
-                    select x;
+            var q = from x in partyMemberRepo.GetAll()
+                    group x by x.Party.PartyName into g
+                    select new KeyValuePair<string, int>(g.Key, g.Where(y => y.LastName.Length < 6).Count());
 
             return q;
         }
 
-        public IEnumerable<PartyMember> GetJuniorMembers(int partyId)
+        public IEnumerable<KeyValuePair<string, int>> SeniorMembersPerParty()
         {
-            var q = from x in partyMemberRepo.GetAll().ToList()
-                    where x.PartyID == partyId && x.Age < 40
-                    select x;
+            var q = from x in partyMemberRepo.GetAll()
+                    group x by x.Party.PartyName into g
+                    select new KeyValuePair<string, int>(g.Key, g.Where(y => y.Age > 50).Count());
 
             return q;
         }
 
-        public IEnumerable<PartyMember> GetSeniorMembers(int partyId)
+        public IEnumerable<KeyValuePair<string, int>> JuniorMembersPerParty()
         {
-            var q = from x in partyMemberRepo.GetAll().ToList()
-                    where x.PartyID == partyId && x.Age > 50
-                    select x;
+            var q = from x in partyMemberRepo.GetAll()
+                    group x by x.Party.PartyName into g
+                    select new KeyValuePair<string, int>(g.Key, g.Where(y => y.Age < 40).Count());
 
             return q;
         }
 
-        public IEnumerable<PartyMember> GetShortNamedMembers(int partyId)
+        public IEnumerable<KeyValuePair<string, double>> AVGAgeOfMembersPerParty()
         {
-            var q = from x in partyMemberRepo.GetAll().ToList()
-                    where x.PartyID == partyId && x.LastName.Length < 6
-                    select x;
+            var q = from x in partyMemberRepo.GetAll()
+                    group x by x.Party.PartyName into g
+                    select new KeyValuePair<string, double>(g.Key, g.Average(y => y.Age));
 
             return q;
         }

@@ -19,13 +19,13 @@ namespace BV3N92_HFT_2021221.Logic
 
         void DeleteParty(int partyId);
 
-        IEnumerable<PartyMember> GetShortNamedMembers(int partyId);
+        IEnumerable<KeyValuePair<string, int>> ShortNamedMembersPerParty();
 
-        IEnumerable<PartyMember> GetSeniorMembers(int partyId);
+        IEnumerable<KeyValuePair<string, int>> SeniorMembersPerParty();
 
-        IEnumerable<PartyMember> GetJuniorMembers(int partyId);
+        IEnumerable<KeyValuePair<string, int>> JuniorMembersPerParty();
 
-        IEnumerable<PartyMember> GetSameIdeologyMembers(string ideology);
+        IEnumerable<KeyValuePair<string, double>> AVGAgeOfMembersPerParty();
 
         IList<Party> GetAllParties();
 

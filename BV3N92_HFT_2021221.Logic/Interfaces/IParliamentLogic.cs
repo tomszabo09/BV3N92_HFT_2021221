@@ -19,7 +19,7 @@ namespace BV3N92_HFT_2021221.Logic
 
         void DeleteParliament(int parliamentId);
 
-        IEnumerable<Party> GetAllRulingParties();
+        IEnumerable<KeyValuePair<string, int>> RepresentativesPerParliament();
 
         IList<Parliament> GetAllParliaments();
 

@@ -12,11 +12,13 @@ namespace BV3N92_HFT_2021221.Logic
     {
         IParliamentRepository parliamentRepo;
         IPartyRepository partyRepo;
+        IPartyMemberRepository partyMemberRepo;
 
-        public ParliamentLogic(IParliamentRepository repo, IPartyRepository prepo)
+        public ParliamentLogic(IParliamentRepository repo, IPartyRepository prepo, IPartyMemberRepository pmrepo)
         {
             this.parliamentRepo = repo;
             this.partyRepo = prepo;
+            this.partyMemberRepo = pmrepo;
         }
 
         public void ChangeName(int parliamentId, string newName)
@@ -100,13 +102,25 @@ namespace BV3N92_HFT_2021221.Logic
             return parliamentRepo.GetAll().ToList();
         }
 
-        public IEnumerable<Party> GetAllRulingParties()
+        public IEnumerable<KeyValuePair<string, int>> RepresentativesPerParliament()
         {
-            var q = from party in partyRepo.GetAll().ToList()
-                    where GetAllParliaments().ToList().FirstOrDefault(parliament => parliament.RulingParty == party.PartyName) != null
-                    select party;
+            var q = from x in partyMemberRepo.GetAll()
+                    group x by x.PartyID into g
+                    select new
+                    {
+                        PARTY_ID = g.Key,
+                        MEMBER_COUNT = g.Count()
+                    };
 
-            return q;
+            var qx = from x in partyRepo.GetAll()
+                     join z in q on x.PartyID equals z.PARTY_ID
+                     let joinedItem = new { x.PartyID, x.PartyName, z.MEMBER_COUNT }
+                     join y in parliamentRepo.GetAll() on x.ParliamentID equals y.ParliamentID
+                     let a = new { y.ParliamentName, z.MEMBER_COUNT }
+                     group a by a.ParliamentName into g
+                     select new KeyValuePair<string, int>(g.Key, g.Sum(b => b.MEMBER_COUNT));
+
+            return qx;
         }
 
         public Parliament GetParliamentByID(int id)

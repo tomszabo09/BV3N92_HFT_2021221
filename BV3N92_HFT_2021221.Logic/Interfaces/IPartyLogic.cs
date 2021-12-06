@@ -21,7 +21,7 @@ namespace BV3N92_HFT_2021221.Logic
 
         IEnumerable<KeyValuePair<string, int>> ShortNamedMembersPerParty();
 
-        IEnumerable<KeyValuePair<string, int>> SeniorMembersPerParty();
+        IEnumerable<KeyValuePair<string, int>> OldestMembersAgePerParty();
 
         IEnumerable<KeyValuePair<string, int>> JuniorMembersPerParty();
 

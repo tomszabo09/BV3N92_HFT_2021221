@@ -158,11 +158,11 @@ namespace BV3N92_HFT_2021221.Logic
             return q;
         }
 
-        public IEnumerable<KeyValuePair<string, int>> SeniorMembersPerParty()
+        public IEnumerable<KeyValuePair<string, int>> OldestMembersAgePerParty()
         {
             var q = from x in partyMemberRepo.GetAll()
                     group x by x.Party.PartyName into g
-                    select new KeyValuePair<string, int>(g.Key, g.Where(y => y.Age > 50).Count());
+                    select new KeyValuePair<string, int>(g.Key, g.Max(y => y.Age));
 
             return q;
         }
@@ -171,7 +171,7 @@ namespace BV3N92_HFT_2021221.Logic
         {
             var q = from x in partyMemberRepo.GetAll()
                     group x by x.Party.PartyName into g
-                    select new KeyValuePair<string, int>(g.Key, g.Where(y => y.Age < 40).Count());
+                    select new KeyValuePair<string, int>(g.Key, g.Where(y => y.Age < 30).Count());
 
             return q;
         }

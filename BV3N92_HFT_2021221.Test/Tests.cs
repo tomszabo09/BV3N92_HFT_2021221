@@ -91,9 +91,9 @@ namespace BV3N92_HFT_2021221.Test
         }
 
         [Test]
-        public void SeniorMembersPerPartyIsCorrect()
+        public void OldestMembersAgePerPartyIsCorrect()
         {
-            Assert.That(this.partyLogic.SeniorMembersPerParty().ToList()[5].Value.Equals(1));
+            Assert.That(this.partyLogic.OldestMembersAgePerParty().ToList()[5].Value.Equals(70));
         }
 
         [Test]

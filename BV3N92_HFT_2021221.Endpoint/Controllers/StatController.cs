@@ -35,11 +35,11 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
             return partyLogic.ShortNamedMembersPerParty();
         }
 
-        // GET: stat/seniormembersperparty
+        // GET: stat/oldestmembersageperparty
         [HttpGet]
-        public IEnumerable<KeyValuePair<string, int>> SeniorMembersPerParty()
+        public IEnumerable<KeyValuePair<string, int>> OldestMembersAgePerParty()
         {
-            return partyLogic.SeniorMembersPerParty();
+            return partyLogic.OldestMembersAgePerParty();
         }
 
         // GET: stat/juniormembersperparty

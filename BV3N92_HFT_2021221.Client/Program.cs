@@ -66,13 +66,15 @@ namespace BV3N92_HFT_2021221.Client
 
             var representativesperparliament = rest.Get<KeyValuePair<string, int>>("stat/representativesperparliament");
             var shortnamedmembersperparty = rest.Get<KeyValuePair<string, int>>("stat/shortnamedmembersperparty");
-            var seniormembersperparty = rest.Get<KeyValuePair<string, int>>("stat/seniormembersperparty");
+            var oldestmembersagesperparty = rest.Get<KeyValuePair<string, int>>("stat/oldestmembersageperparty");
             var juniormembersperparty = rest.Get<KeyValuePair<string, int>>("stat/juniormembersperparty");
             var avgageofmembersperparty = rest.Get<KeyValuePair<string, double>>("stat/avgageofmembersperparty");
 
             var parliaments = rest.Get<Parliament>("parliament");
             var parties = rest.Get<Party>("party");
             var members = rest.Get<PartyMember>("partymember");
+
+            ;
 
             #endregion
         }
@@ -94,8 +96,8 @@ namespace BV3N92_HFT_2021221.Client
             Console.WriteLine("4. Delete entities");
             Console.WriteLine("5. Get number of representatives in each parliament");
             Console.WriteLine("6. Get number of short named members (less than 6 characters) per party");
-            Console.WriteLine("7. Get number of senior members (over the age of 50) per party");
-            Console.WriteLine("8. Get number of junior members (under the age of 40) per party");
+            Console.WriteLine("7. Get oldest member's age per party");
+            Console.WriteLine("8. Get number of junior members (under the age of 30) per party");
             Console.WriteLine("9. Get average age of members per party");
             Console.WriteLine("______________________________________________________\n");
             Console.WriteLine("You can navigate the menu with the corresponding number keys.");
@@ -474,9 +476,9 @@ namespace BV3N92_HFT_2021221.Client
                 else if (key == ConsoleKey.D7 || key == ConsoleKey.NumPad7)
                 {
                     Console.Clear();
-                    foreach (var item in rest.Get<KeyValuePair<string, int>>("stat/seniormembersperparty"))
+                    foreach (var item in rest.Get<KeyValuePair<string, int>>("stat/oldestmembersageperparty"))
                     {
-                        Console.WriteLine($"Party: {item.Key}\nNumber of senior members: {item.Value}\n");
+                        Console.WriteLine($"Party: {item.Key}\nOldest member's age: {item.Value}\n");
                     }
                     Console.WriteLine("\nPress any key to return to main menu...");
                     Console.ReadKey();

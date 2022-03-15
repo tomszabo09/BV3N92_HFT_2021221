@@ -20,13 +20,13 @@ namespace BV3N92_HFT_2021221.Endpoint
         {
             services.AddControllers();
 
-            services.AddSingleton<IParliamentLogic, ParliamentLogic>();
-            services.AddSingleton<IPartyLogic, PartyLogic>();
-            services.AddSingleton<IPartyMemberLogic, PartyMemberLogic>();
+            services.AddTransient<IParliamentLogic, ParliamentLogic>();
+            services.AddTransient<IPartyLogic, PartyLogic>();
+            services.AddTransient<IPartyMemberLogic, PartyMemberLogic>();
 
-            services.AddSingleton<IParliamentRepository, ParliamentRepository>();
-            services.AddSingleton<IPartyRepository, PartyRepository>();
-            services.AddSingleton<IPartyMemberRepository, PartyMemberRepository>();
+            services.AddTransient<IParliamentRepository, ParliamentRepository>();
+            services.AddTransient<IPartyRepository, PartyRepository>();
+            services.AddTransient<IPartyMemberRepository, PartyMemberRepository>();
 
             services.AddTransient<DbContext, ParliamentAdministrationDbContext>();
         }

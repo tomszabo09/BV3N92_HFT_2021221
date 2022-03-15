@@ -5,42 +5,93 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BV3N92_GUI_2021222.WpfClient"
         mc:Ignorable="d"
-        Title="Inner Politics Editor" Height="450" Width="800">
+        Title="Inner Politics Editor" Height="600" Width="800">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="454"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <TabControl Grid.Column="0">
+        <TabControl>
             <TabItem Width="150" Height="30" Header="Parliaments">
-                <ListBox ItemsSource="{Binding Parliaments}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding ParliamentName}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Grid.Column="0" ItemsSource="{Binding Parliaments}" SelectedItem="{Binding SelectedParliament}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding ParliamentName}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="ID of Parliament" Background="LightBlue" Padding="10"/>
+                        <TextBlock Text="{Binding SelectedParliament.ParliamentID}" Padding="10"/>
+                        <Label Content="Name of Parliament" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedParliament.ParliamentName}" Padding="10"/>
+                        <Label Content="Name of Ruling Party" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedParliament.RulingParty}" Padding="10" Margin="0,0,0,30"/>
+                        <Button Content="Create Parliament" Command="{Binding CreateParliamentCommand}" Margin="10" Padding="10"/>
+                        <Button Content="Update Parliament" Command="{Binding UpdateParliamentCommand}" Margin="10" Padding="10"/>
+                        <Button Content="Delete Parliament" Command="{Binding DeleteParliamentCommand}" Margin="10" Padding="10"/>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Width="150" Height="30" Header="Parties">
-                <ListBox ItemsSource="{Binding Parties}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding PartyName}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Grid.Column="0" ItemsSource="{Binding Parties}" SelectedItem="{Binding SelectedParty}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding PartyName}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="ID of Party" Background="LightBlue" Padding="10"/>
+                        <TextBlock Text="{Binding SelectedParty.PartyID}" Padding="10"/>
+                        <Label Content="Name of Party" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedParty.PartyName}" Padding="10"/>
+                        <Label Content="Party Ideology" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedParty.Ideology}" Padding="10"/>
+                        <Label Content="ID of Parliament" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedParty.ParliamentID}" Padding="10" Margin="0,0,0,30"/>
+                        <Button Content="Create Party" Command="{Binding CreatePartyCommand}" Margin="10" Padding="10"/>
+                        <Button Content="Update Party" Command="{Binding UpdatePartyCommand}" Margin="10" Padding="10"/>
+                        <Button Content="Delete Party" Command="{Binding DeletePartyCommand}" Margin="10" Padding="10"/>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Width="150" Height="30" Header="Party Members">
-                <ListBox ItemsSource="{Binding PartyMembers}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding LastName}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Grid.Column="0" ItemsSource="{Binding PartyMembers}" SelectedItem="{Binding SelectedPartyMember}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding LastName}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Column="1">
+                        <Label Content="ID of Member" Background="LightBlue" Padding="10"/>
+                        <TextBlock Text="{Binding SelectedPartyMember.MemberID}" Padding="10"/>
+                        <Label Content="Last Name of Member" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedPartyMember.LastName}" Padding="10"/>
+                        <Label Content="Age of Member" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedPartyMember.Age}" Padding="10"/>
+                        <Label Content="ID of Party" Background="LightBlue" Padding="10"/>
+                        <TextBox Text="{Binding SelectedPartyMember.PartyID}" Padding="10" Margin="0,0,0,30"/>
+                        <Button Content="Create Party Member" Command="{Binding CreatePartyMemberCommand}" Margin="10" Padding="10"/>
+                        <Button Content="Update Party Member" Command="{Binding UpdatePartyMemberCommand}" Margin="10" Padding="10"/>
+                        <Button Content="Delete Party Member" Command="{Binding DeletePartyMemberCommand}" Margin="10" Padding="10"/>
+                    </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

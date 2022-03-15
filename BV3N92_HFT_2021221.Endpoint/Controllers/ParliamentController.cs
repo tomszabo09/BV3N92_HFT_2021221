@@ -1,6 +1,8 @@
-﻿using BV3N92_HFT_2021221.Logic;
+﻿using BV3N92_HFT_2021221.Endpoint.Services;
+using BV3N92_HFT_2021221.Logic;
 using BV3N92_HFT_2021221.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,12 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
     public class ParliamentController : ControllerBase
     {
         IParliamentLogic parliamentLogic;
+        IHubContext<SignalRHub> hub;
 
-        public ParliamentController(IParliamentLogic parliamentLogic)
+        public ParliamentController(IParliamentLogic parliamentLogic, IHubContext<SignalRHub> hub)
         {
             this.parliamentLogic = parliamentLogic;
+            this.hub = hub;
         }
 
         // GET: /parliament
@@ -38,6 +42,7 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
         public void Post([FromBody] Parliament value)
         {
             parliamentLogic.AddNewParliament(value);
+            hub.Clients.All.SendAsync("ParliamentCreated", value);
         }
 
         // PUT /parliament
@@ -45,13 +50,16 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
         public void Put([FromBody] Parliament value)
         {
             parliamentLogic.UpdateParliament(value);
+            hub.Clients.All.SendAsync("ParliamentUpdated", value);
         }
 
         // DELETE /parliament/2
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var toDel = parliamentLogic.GetParliamentByID(id);
             parliamentLogic.DeleteParliament(id);
+            hub.Clients.All.SendAsync("ParliamentDeleted", toDel);
         }
     }
 }

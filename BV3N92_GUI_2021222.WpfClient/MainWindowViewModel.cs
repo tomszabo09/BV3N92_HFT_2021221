@@ -74,9 +74,9 @@ namespace BV3N92_GUI_2021222.WpfClient
 
         public MainWindowViewModel()
         {
-            Parliaments = new RestCollection<Parliament>("http://localhost:41126/", "parliament");
-            Parties = new RestCollection<Party>("http://localhost:41126/", "party");
-            PartyMembers = new RestCollection<PartyMember>("http://localhost:41126/", "partymember");
+            Parliaments = new RestCollection<Parliament>("http://localhost:41126/", "parliament", "hub");
+            Parties = new RestCollection<Party>("http://localhost:41126/", "party", "hub");
+            PartyMembers = new RestCollection<PartyMember>("http://localhost:41126/", "partymember", "hub");
 
             CreateParliamentCommand = new RelayCommand(() =>
             {

@@ -1,4 +1,5 @@
 using BV3N92_HFT_2021221.Data;
+using BV3N92_HFT_2021221.Endpoint.Services;
 using BV3N92_HFT_2021221.Logic;
 using BV3N92_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -18,17 +19,18 @@ namespace BV3N92_HFT_2021221.Endpoint
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            services.AddSingleton<IParliamentLogic, ParliamentLogic>();
-            services.AddSingleton<IPartyLogic, PartyLogic>();
-            services.AddSingleton<IPartyMemberLogic, PartyMemberLogic>();
+            services.AddTransient<DbContext, ParliamentAdministrationDbContext>();
 
             services.AddSingleton<IParliamentRepository, ParliamentRepository>();
             services.AddSingleton<IPartyRepository, PartyRepository>();
             services.AddSingleton<IPartyMemberRepository, PartyMemberRepository>();
 
-            services.AddTransient<DbContext, ParliamentAdministrationDbContext>();
+            services.AddSingleton<IParliamentLogic, ParliamentLogic>();
+            services.AddSingleton<IPartyLogic, PartyLogic>();
+            services.AddSingleton<IPartyMemberLogic, PartyMemberLogic>();
+
+            services.AddSignalR();
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,6 +45,7 @@ namespace BV3N92_HFT_2021221.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

@@ -132,9 +132,9 @@ namespace BV3N92_HFT_2021221.Logic
                 memberRepo.DeleteMember(memberId);
         }
 
-        public IList<PartyMember> GetAllMembers()
+        public IQueryable<PartyMember> GetAllMembers()
         {
-            return memberRepo.GetAll().ToList();
+            return memberRepo.GetAll();
         }
 
         public PartyMember GetMemberByID(int id)

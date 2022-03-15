@@ -28,7 +28,7 @@ namespace BV3N92_HFT_2021221.Endpoint
             services.AddSingleton<IPartyRepository, PartyRepository>();
             services.AddSingleton<IPartyMemberRepository, PartyMemberRepository>();
 
-            services.AddSingleton<DbContext, ParliamentAdministrationDbContext>();
+            services.AddTransient<DbContext, ParliamentAdministrationDbContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

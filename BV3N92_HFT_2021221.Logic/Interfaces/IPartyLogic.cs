@@ -27,7 +27,7 @@ namespace BV3N92_HFT_2021221.Logic
 
         IEnumerable<KeyValuePair<string, double>> AVGAgeOfMembersPerParty();
 
-        IList<Party> GetAllParties();
+        IQueryable<Party> GetAllParties();
 
         void AddNewParty(Party party);
 

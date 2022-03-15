@@ -97,9 +97,9 @@ namespace BV3N92_HFT_2021221.Logic
                 parliamentRepo.DeleteParliament(parliamentId);
         }
 
-        public IList<Parliament> GetAllParliaments()
+        public IQueryable<Parliament> GetAllParliaments()
         {
-            return parliamentRepo.GetAll().ToList();
+            return parliamentRepo.GetAll();
         }
 
         public IEnumerable<KeyValuePair<string, int>> RepresentativesPerParliament()

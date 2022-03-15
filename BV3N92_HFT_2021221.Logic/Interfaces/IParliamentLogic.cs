@@ -21,7 +21,7 @@ namespace BV3N92_HFT_2021221.Logic
 
         IEnumerable<KeyValuePair<string, int>> RepresentativesPerParliament();
 
-        IList<Parliament> GetAllParliaments();
+        IQueryable<Parliament> GetAllParliaments();
 
         void AddNewParliament(Parliament parliament);
 

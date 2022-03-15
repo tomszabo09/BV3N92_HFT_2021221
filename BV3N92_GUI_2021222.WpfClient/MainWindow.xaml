@@ -5,12 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BV3N92_GUI_2021222.WpfClient"
         mc:Ignorable="d"
-        Title="Inner Politics Editor" Height="600" Width="800">
+        Title="Inner Politics Editor" Height="600" Width="1000">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <TabControl>
+            <TabItem Width="150" Height="30" Header="Rules">
+                <Grid>
+                    <TextBlock TextWrapping="WrapWithOverflow" FontSize="14">
+                        Welcome to Inner Politics Editor!<LineBreak/><LineBreak/>
+
+                        You have the opportunity to manage inner politics of many nations. That means you have a context consisting of parliaments, parties and party members.<LineBreak/>
+                        Each parliament has multiple parties, of which one of them is the ruling party.<LineBreak/>
+                        Each party has an ideology and multiple junior and senior party members.<LineBreak/>
+                        Some rules before editing:<LineBreak/><LineBreak/>
+
+                        Parliament:<LineBreak/>
+                        - must have a unique name<LineBreak/>
+                        - ruling party must be an existing party<LineBreak/>
+                        - ruling party can be part of another parliament (if it was forbidden you wouldn't be able to create a parliament at all)<LineBreak/><LineBreak/>
+
+                        Party:<LineBreak/>
+                        - must have a unique name<LineBreak/>
+                        - must be part of an existing parliament<LineBreak/>
+                        - ideology must be picked from a fixed pool: Socialist, Conservative, Nationalist (watch out for capital letters)<LineBreak/><LineBreak/>
+
+                        Party Member:<LineBreak/>
+                        - must be at least 18 or at most 70 years old<LineBreak/>
+                        - must be part of an existing party
+                    </TextBlock>
+                </Grid>
+            </TabItem>
             <TabItem Width="150" Height="30" Header="Parliaments">
                 <Grid>
                     <Grid.ColumnDefinitions>

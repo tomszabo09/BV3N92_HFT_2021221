@@ -72,65 +72,77 @@ namespace BV3N92_GUI_2021222.WpfClient
         public ICommand DeletePartyCommand { get; set; }
         public ICommand DeletePartyMemberCommand { get; set; }
 
+        public static bool IsInDesignMode
+        {
+            get
+            {
+                var prop = DesignerProperties.IsInDesignModeProperty;
+                return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
+            }
+        }
+
         public MainWindowViewModel()
         {
-            Parliaments = new RestCollection<Parliament>("http://localhost:41126/", "parliament", "hub");
-            Parties = new RestCollection<Party>("http://localhost:41126/", "party", "hub");
-            PartyMembers = new RestCollection<PartyMember>("http://localhost:41126/", "partymember", "hub");
-
-            CreateParliamentCommand = new RelayCommand(() =>
+            if (!IsInDesignMode)
             {
-                Parliaments.Add(new Parliament()
+                Parliaments = new RestCollection<Parliament>("http://localhost:41126/", "parliament", "hub");
+                Parties = new RestCollection<Party>("http://localhost:41126/", "party", "hub");
+                PartyMembers = new RestCollection<PartyMember>("http://localhost:41126/", "partymember", "hub");
+
+                CreateParliamentCommand = new RelayCommand(() =>
                 {
-                    ParliamentName = SelectedParliament.ParliamentName,
-                    RulingParty = SelectedParliament.RulingParty
+                    Parliaments.Add(new Parliament()
+                    {
+                        ParliamentName = SelectedParliament.ParliamentName,
+                        RulingParty = SelectedParliament.RulingParty
+                    });
                 });
-            });
 
-            CreatePartyCommand = new RelayCommand(() =>
-            {
-                Parties.Add(new Party()
+                CreatePartyCommand = new RelayCommand(() =>
                 {
-                    PartyName = SelectedParty.PartyName,
-                    ParliamentID = SelectedParty.ParliamentID,
-                    Ideology = SelectedParty.Ideology
+                    Parties.Add(new Party()
+                    {
+                        PartyName = SelectedParty.PartyName,
+                        ParliamentID = SelectedParty.ParliamentID,
+                        Ideology = SelectedParty.Ideology
+                    });
                 });
-            });
 
-            CreatePartyMemberCommand = new RelayCommand(() =>
-            {
-                PartyMembers.Add(new PartyMember()
+                CreatePartyMemberCommand = new RelayCommand(() =>
                 {
-                    Age = SelectedPartyMember.Age,
-                    LastName = SelectedPartyMember.LastName,
-                    PartyID = SelectedPartyMember.PartyID
+                    PartyMembers.Add(new PartyMember()
+                    {
+                        Age = SelectedPartyMember.Age,
+                        LastName = SelectedPartyMember.LastName,
+                        PartyID = SelectedPartyMember.PartyID
+                    });
                 });
-            });
 
-            UpdateParliamentCommand = new RelayCommand(() => { Parliaments.Update(SelectedParliament); });
+                UpdateParliamentCommand = new RelayCommand(() => { Parliaments.Update(SelectedParliament); });
 
-            UpdatePartyCommand = new RelayCommand(() => { Parties.Update(SelectedParty); });
+                UpdatePartyCommand = new RelayCommand(() => { Parties.Update(SelectedParty); });
 
-            UpdatePartyMemberCommand = new RelayCommand(() => { PartyMembers.Update(SelectedPartyMember); });
+                UpdatePartyMemberCommand = new RelayCommand(() => { PartyMembers.Update(SelectedPartyMember); });
 
-            DeleteParliamentCommand = new RelayCommand(() =>
-            {
-                Parliaments.Delete(SelectedParliament.ParliamentID);
-            }, () => { return SelectedParliament != null; });
+                DeleteParliamentCommand = new RelayCommand(() =>
+                {
+                    Parliaments.Delete(SelectedParliament.ParliamentID);
+                }, () => { return SelectedParliament != null; });
 
-            DeletePartyCommand = new RelayCommand(() =>
-            {
-                Parties.Delete(SelectedParty.PartyID);
-            }, () => { return SelectedParty != null; });
+                DeletePartyCommand = new RelayCommand(() =>
+                {
+                    Parties.Delete(SelectedParty.PartyID);
+                }, () => { return SelectedParty != null; });
 
-            DeletePartyMemberCommand = new RelayCommand(() =>
-            {
-                PartyMembers.Delete(SelectedPartyMember.MemberID);
-            }, () => { return SelectedPartyMember != null; });
+                DeletePartyMemberCommand = new RelayCommand(() =>
+                {
+                    PartyMembers.Delete(SelectedPartyMember.MemberID);
+                }, () => { return SelectedPartyMember != null; });
 
-            SelectedParliament = new Parliament();
-            SelectedParty = new Party();
-            SelectedPartyMember = new PartyMember();
+                SelectedParliament = new Parliament();
+                SelectedParty = new Party();
+                SelectedPartyMember = new PartyMember();
+            }
         }
     }
 }

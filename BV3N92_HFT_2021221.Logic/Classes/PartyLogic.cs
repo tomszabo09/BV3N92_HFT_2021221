@@ -235,17 +235,9 @@ namespace BV3N92_HFT_2021221.Logic
             {
                 throw new Exception($"Non-existent ideology! Ideology pool: {Ideologies.Socialist}, {Ideologies.Conservative}, {Ideologies.Nationalist}");
             }
-            else if (GetPartyByID(party.PartyID).Ideology.Equals(party.Ideology))
-            {
-                throw new Exception("New ideology cannot match old one!");
-            }
             else if (party.PartyName.Equals(string.Empty))
             {
                 throw new Exception("Name has to be given!");
-            }
-            else if (GetPartyByID(party.PartyID).PartyName.Equals(party.PartyName))
-            {
-                throw new Exception("New name cannot match old one!");
             }
             else if (GetAllParties().Any(x => x.PartyID == party.PartyID))
             {

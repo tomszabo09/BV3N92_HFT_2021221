@@ -169,46 +169,64 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
 
-            if (parliament.ParliamentName.Equals(string.Empty))
+            bool rulingPartyExists = false;
+            foreach (var item in partyRepo.GetAll().ToList())
             {
-                throw new Exception("Name has to be given!");
+                if (item.PartyName.Equals(parliament.RulingParty))
+                {
+                    rulingPartyExists = true;
+                    if (parliament.ParliamentName.Equals(string.Empty))
+                    {
+                        throw new Exception("Name has to be given!");
+                    }
+                    else if (parliament.RulingParty.Equals(string.Empty))
+                    {
+                        throw new Exception("Ruling party has to be given!");
+                    }
+                    else
+                        parliamentRepo.AddNewParliament(parliament);
+                }
             }
-            else if (parliament.RulingParty.Equals(string.Empty))
+
+            if (!rulingPartyExists)
             {
-                throw new Exception("Ruling party has to be given!");
+                throw new Exception("Ruling party has to be an existing one!");
             }
-            else
-                parliamentRepo.AddNewParliament(parliament);
         }
 
         public void UpdateParliament(Parliament parliament)
         {
-            if (parliament.ParliamentID < 0)
+            bool rulingPartyExists = false;
+            foreach (var item in partyRepo.GetAll().ToList())
             {
-                throw new Exception("Invalid ID!");
+                if (item.PartyName.Equals(parliament.RulingParty))
+                {
+                    rulingPartyExists = true;
+                    if (parliament.ParliamentID < 0)
+                    {
+                        throw new Exception("Invalid ID!");
+                    }
+                    else if (parliament.ParliamentName.Equals(string.Empty))
+                    {
+                        throw new Exception("Name has to be given!");
+                    }
+                    else if (parliament.RulingParty.Equals(string.Empty))
+                    {
+                        throw new Exception("New name has to be given!");
+                    }
+                    else if (GetAllParliaments().Any(x => x.ParliamentID == parliament.ParliamentID))
+                    {
+                        parliamentRepo.UpdateParliament(parliament);
+                    }
+                    else
+                        throw new Exception($"No such parliament with ID '{parliament.ParliamentID}'!");
+                }
             }
-            else if (parliament.ParliamentName.Equals(string.Empty))
+
+            if (!rulingPartyExists)
             {
-                throw new Exception("Name has to be given!");
+                throw new Exception("Ruling party has to be an existing one!");
             }
-            else if (parliament.RulingParty.Equals(string.Empty))
-            {
-                throw new Exception("New name has to be given!");
-            }
-            else if (GetAllParliaments().Any(x => x.ParliamentName == parliament.ParliamentName))
-            {
-                throw new Exception($"A parliament with the name '{parliament.ParliamentName}' already exists!");
-            }
-            else if (GetParliamentByID(parliament.ParliamentID).RulingParty.Equals(parliament.RulingParty))
-            {
-                throw new Exception("New ruling party cannot have the same name as the old one!");
-            }
-            else if (GetAllParliaments().Any(x => x.ParliamentID == parliament.ParliamentID))
-            {
-                parliamentRepo.UpdateParliament(parliament);
-            }
-            else
-                throw new Exception($"No such parliament with ID '{parliament.ParliamentID}'!");
         }
     }
 }

@@ -15,11 +15,13 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
     public class PartyController : ControllerBase
     {
         IPartyLogic partyLogic;
+        IPartyMemberLogic memberLogic;
         IHubContext<SignalRHub> hub;
 
-        public PartyController(IPartyLogic partyLogic, IHubContext<SignalRHub> hub)
+        public PartyController(IPartyLogic partyLogic, IPartyMemberLogic memberLogic, IHubContext<SignalRHub> hub)
         {
             this.partyLogic = partyLogic;
+            this.memberLogic = memberLogic;
             this.hub = hub;
         }
 
@@ -58,6 +60,16 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
         public void Delete(int id)
         {
             var toDel = partyLogic.GetPartyByID(id);
+
+            foreach (var member in memberLogic.GetAllMembers())
+            {
+                if (member.PartyID == toDel.PartyID)
+                {
+                    hub.Clients.All.SendAsync("PartyMemberDeleted", member);
+                }
+
+            }
+            
             partyLogic.DeleteParty(id);
             hub.Clients.All.SendAsync("PartyDeleted", toDel);
         }

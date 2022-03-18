@@ -15,15 +15,11 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
     public class ParliamentController : ControllerBase
     {
         IParliamentLogic parliamentLogic;
-        IPartyLogic partyLogic;
-        IPartyMemberLogic memberLogic;
         IHubContext<SignalRHub> hub;
 
-        public ParliamentController(IParliamentLogic parliamentLogic, IPartyLogic partyLogic, IPartyMemberLogic memberLogic, IHubContext<SignalRHub> hub)
+        public ParliamentController(IParliamentLogic parliamentLogic, IHubContext<SignalRHub> hub)
         {
             this.parliamentLogic = parliamentLogic;
-            this.partyLogic = partyLogic;
-            this.memberLogic = memberLogic;
             this.hub = hub;
         }
 
@@ -62,24 +58,11 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
         public void Delete(int id)
         {
             var toDel = parliamentLogic.GetParliamentByID(id);
-
-            foreach (var party in partyLogic.GetAllParties())
-            {
-                if (party.ParliamentID == toDel.ParliamentID)
-                {
-                    foreach (var member in memberLogic.GetAllMembers())
-                    {
-                        if (member.PartyID == party.PartyID)
-                        {
-                            hub.Clients.All.SendAsync("PartyMemberDeleted", member);
-                        }
-                    }
-                    hub.Clients.All.SendAsync("PartyDeleted", party);
-                }
-            }
-
             parliamentLogic.DeleteParliament(id);
+
             hub.Clients.All.SendAsync("ParliamentDeleted", toDel);
+            hub.Clients.All.SendAsync("PartyDeleted", null);
+            hub.Clients.All.SendAsync("PartyMemberDeleted", null);
         }
     }
 }

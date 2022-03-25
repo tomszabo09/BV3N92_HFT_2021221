@@ -82,7 +82,7 @@
                         <Label Content="Name of Party" Background="LightBlue" Padding="10"/>
                         <TextBox Text="{Binding SelectedParty.PartyName}" Padding="10"/>
                         <Label Content="Party Ideology" Background="LightBlue" Padding="10"/>
-                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedParty.Ideology}" SelectedValuePath="Ideology" DisplayMemberPath="Ideology" Padding="10"/>
+                        <ComboBox ItemsSource="{Binding IdeologyParties}" SelectedValue="{Binding SelectedParty.Ideology}" SelectedValuePath="Ideology" DisplayMemberPath="Ideology" Padding="10"/>
                         <Label Content="ID of Parliament" Background="LightBlue" Padding="10"/>
                         <ComboBox ItemsSource="{Binding Parliaments}" SelectedValue="{Binding SelectedParty.ParliamentID}" SelectedValuePath="ParliamentID" DisplayMemberPath="ParliamentID" Padding="10"/>
                         <Button Content="Create Party" Command="{Binding CreatePartyCommand}" Margin="10" Padding="10"/>

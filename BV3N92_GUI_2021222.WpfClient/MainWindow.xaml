@@ -56,7 +56,7 @@
                         <Label Content="Name of Parliament" Background="LightBlue" Padding="10"/>
                         <TextBox Text="{Binding SelectedParliament.ParliamentName}" Padding="10"/>
                         <Label Content="Name of Ruling Party" Background="LightBlue" Padding="10"/>
-                        <TextBox Text="{Binding SelectedParliament.RulingParty}" Padding="10" Margin="0,0,0,30"/>
+                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedParliament.RulingParty}" SelectedValuePath="PartyName" DisplayMemberPath="PartyName" Padding="10"/>
                         <Button Content="Create Parliament" Command="{Binding CreateParliamentCommand}" Margin="10" Padding="10"/>
                         <Button Content="Update Parliament" Command="{Binding UpdateParliamentCommand}" Margin="10" Padding="10"/>
                         <Button Content="Delete Parliament" Command="{Binding DeleteParliamentCommand}" Margin="10" Padding="10"/>
@@ -82,9 +82,9 @@
                         <Label Content="Name of Party" Background="LightBlue" Padding="10"/>
                         <TextBox Text="{Binding SelectedParty.PartyName}" Padding="10"/>
                         <Label Content="Party Ideology" Background="LightBlue" Padding="10"/>
-                        <TextBox Text="{Binding SelectedParty.Ideology}" Padding="10"/>
+                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedParty.Ideology}" SelectedValuePath="Ideology" DisplayMemberPath="Ideology" Padding="10"/>
                         <Label Content="ID of Parliament" Background="LightBlue" Padding="10"/>
-                        <TextBox Text="{Binding SelectedParty.ParliamentID}" Padding="10" Margin="0,0,0,30"/>
+                        <ComboBox ItemsSource="{Binding Parliaments}" SelectedValue="{Binding SelectedParty.ParliamentID}" SelectedValuePath="ParliamentID" DisplayMemberPath="ParliamentID" Padding="10"/>
                         <Button Content="Create Party" Command="{Binding CreatePartyCommand}" Margin="10" Padding="10"/>
                         <Button Content="Update Party" Command="{Binding UpdatePartyCommand}" Margin="10" Padding="10"/>
                         <Button Content="Delete Party" Command="{Binding DeletePartyCommand}" Margin="10" Padding="10"/>
@@ -112,7 +112,7 @@
                         <Label Content="Age of Member" Background="LightBlue" Padding="10"/>
                         <TextBox Text="{Binding SelectedPartyMember.Age}" Padding="10"/>
                         <Label Content="ID of Party" Background="LightBlue" Padding="10"/>
-                        <TextBox Text="{Binding SelectedPartyMember.PartyID}" Padding="10" Margin="0,0,0,30"/>
+                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedPartyMember.PartyID}" SelectedValuePath="PartyID" DisplayMemberPath="PartyID" Padding="10"/>
                         <Button Content="Create Party Member" Command="{Binding CreatePartyMemberCommand}" Margin="10" Padding="10"/>
                         <Button Content="Update Party Member" Command="{Binding UpdatePartyMemberCommand}" Margin="10" Padding="10"/>
                         <Button Content="Delete Party Member" Command="{Binding DeletePartyMemberCommand}" Margin="10" Padding="10"/>

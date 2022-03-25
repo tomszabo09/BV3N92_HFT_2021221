@@ -3,6 +3,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,10 @@ namespace BV3N92_GUI_2021222.WpfClient
                 if (value != null)
                 {
                     selectedParliament = new Parliament() { ParliamentName = value.ParliamentName, ParliamentID = value.ParliamentID, RulingParty = value.RulingParty };
+                    selectedParty = Parties.FirstOrDefault(x => x.ParliamentID == value.ParliamentID);
                     OnPropertyChanged();
+                    (CreateParliamentCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (UpdateParliamentCommand as RelayCommand).NotifyCanExecuteChanged();
                     (DeleteParliamentCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
@@ -40,6 +44,8 @@ namespace BV3N92_GUI_2021222.WpfClient
                 {
                     selectedParty = new Party() { PartyName = value.PartyName, PartyID = value.PartyID, ParliamentID = value.ParliamentID, Ideology = value.Ideology };
                     OnPropertyChanged();
+                    (CreatePartyCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (UpdatePartyCommand as RelayCommand).NotifyCanExecuteChanged();
                     (DeletePartyCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
@@ -53,6 +59,8 @@ namespace BV3N92_GUI_2021222.WpfClient
                 {
                     selectedPartyMember = new PartyMember() { LastName = value.LastName, MemberID = value.MemberID, Age = value.Age, PartyID = value.PartyID };
                     OnPropertyChanged();
+                    (CreatePartyMemberCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (UpdatePartyMemberCommand as RelayCommand).NotifyCanExecuteChanged();
                     (DeletePartyMemberCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
@@ -96,7 +104,7 @@ namespace BV3N92_GUI_2021222.WpfClient
                         ParliamentName = SelectedParliament.ParliamentName,
                         RulingParty = SelectedParliament.RulingParty
                     });
-                });
+                }, () => { return SelectedParliament != null; });
 
                 CreatePartyCommand = new RelayCommand(() =>
                 {
@@ -106,7 +114,7 @@ namespace BV3N92_GUI_2021222.WpfClient
                         ParliamentID = SelectedParty.ParliamentID,
                         Ideology = SelectedParty.Ideology
                     });
-                });
+                }, () => { return SelectedParty != null; });
 
                 CreatePartyMemberCommand = new RelayCommand(() =>
                 {
@@ -116,13 +124,13 @@ namespace BV3N92_GUI_2021222.WpfClient
                         LastName = SelectedPartyMember.LastName,
                         PartyID = SelectedPartyMember.PartyID
                     });
-                });
+                }, () => { return SelectedPartyMember != null; });
 
-                UpdateParliamentCommand = new RelayCommand(() => { Parliaments.Update(SelectedParliament); });
+                UpdateParliamentCommand = new RelayCommand(() => { Parliaments.Update(SelectedParliament); }, () => { return SelectedParliament != null; });
 
-                UpdatePartyCommand = new RelayCommand(() => { Parties.Update(SelectedParty); });
+                UpdatePartyCommand = new RelayCommand(() => { Parties.Update(SelectedParty); }, () => { return SelectedParty != null; });
 
-                UpdatePartyMemberCommand = new RelayCommand(() => { PartyMembers.Update(SelectedPartyMember); });
+                UpdatePartyMemberCommand = new RelayCommand(() => { PartyMembers.Update(SelectedPartyMember); }, () => { return SelectedPartyMember != null; });
 
                 DeleteParliamentCommand = new RelayCommand(() =>
                 {
@@ -139,9 +147,9 @@ namespace BV3N92_GUI_2021222.WpfClient
                     PartyMembers.Delete(SelectedPartyMember.MemberID);
                 }, () => { return SelectedPartyMember != null; });
 
-                SelectedParliament = new Parliament();
-                SelectedParty = new Party();
-                SelectedPartyMember = new PartyMember();
+                //SelectedParliament = new Parliament();
+                //SelectedParty = new Party();
+                //SelectedPartyMember = new PartyMember();
             }
         }
     }

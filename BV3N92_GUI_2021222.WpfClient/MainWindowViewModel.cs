@@ -18,7 +18,9 @@ namespace BV3N92_GUI_2021222.WpfClient
         private Parliament selectedParliament;
         private Party selectedParty;
         private PartyMember selectedPartyMember;
+
         public List<Party> IdeologyParties { get; set; }
+        public List<PartyMember> MemberAges { get; set; }
 
         public Parliament SelectedParliament
         {
@@ -28,7 +30,6 @@ namespace BV3N92_GUI_2021222.WpfClient
                 if (value != null)
                 {
                     selectedParliament = new Parliament() { ParliamentName = value.ParliamentName, ParliamentID = value.ParliamentID, RulingParty = value.RulingParty };
-                    selectedParty = Parties.FirstOrDefault(x => x.ParliamentID == value.ParliamentID);
                     OnPropertyChanged();
                     (CreateParliamentCommand as RelayCommand).NotifyCanExecuteChanged();
                     (UpdateParliamentCommand as RelayCommand).NotifyCanExecuteChanged();
@@ -103,6 +104,12 @@ namespace BV3N92_GUI_2021222.WpfClient
                 IdeologyParties.Add(new Party() { Ideology = Ideologies.Conservative.ToString() });
                 IdeologyParties.Add(new Party() { Ideology = Ideologies.Nationalist.ToString() });
 
+                MemberAges = new List<PartyMember>();
+                for (int i = 18; i <= 70; i++)
+                {
+                    MemberAges.Add(new PartyMember() { Age = i });
+                }
+
                 CreateParliamentCommand = new RelayCommand(() =>
                 {
                     Parliaments.Add(new Parliament()
@@ -132,30 +139,36 @@ namespace BV3N92_GUI_2021222.WpfClient
                     });
                 }, () => { return SelectedPartyMember != null; });
 
-                UpdateParliamentCommand = new RelayCommand(() => { Parliaments.Update(SelectedParliament); }, () => { return SelectedParliament != null; });
+                UpdateParliamentCommand = new RelayCommand(() => { Parliaments.Update(SelectedParliament); },
+                    () => { return SelectedParliament != null && SelectedParliament.ParliamentName != null && SelectedParliament.RulingParty != null; });
 
-                UpdatePartyCommand = new RelayCommand(() => { Parties.Update(SelectedParty); }, () => { return SelectedParty != null; });
+                UpdatePartyCommand = new RelayCommand(() => { Parties.Update(SelectedParty); },
+                    () => { return SelectedParty != null && SelectedParty.PartyName != null && SelectedParty.Ideology != null && SelectedParty?.ParliamentID != null; });
 
-                UpdatePartyMemberCommand = new RelayCommand(() => { PartyMembers.Update(SelectedPartyMember); }, () => { return SelectedPartyMember != null; });
+                UpdatePartyMemberCommand = new RelayCommand(() => { PartyMembers.Update(SelectedPartyMember); },
+                    () => { return SelectedPartyMember != null && SelectedPartyMember.LastName != null && SelectedPartyMember?.Age != null &&SelectedPartyMember?.PartyID != null; });
 
                 DeleteParliamentCommand = new RelayCommand(() =>
                 {
                     Parliaments.Delete(SelectedParliament.ParliamentID);
-                }, () => { return SelectedParliament != null; });
+                    SelectedParliament = new Parliament();
+                }, () => { return SelectedParliament.ParliamentName != null && SelectedParliament.RulingParty != null; });
 
                 DeletePartyCommand = new RelayCommand(() =>
                 {
                     Parties.Delete(SelectedParty.PartyID);
-                }, () => { return SelectedParty != null; });
+                    SelectedParty = new Party();
+                }, () => { return SelectedParty != null && SelectedParty.PartyName != null && SelectedParty.Ideology != null && SelectedParty?.ParliamentID != null; });
 
                 DeletePartyMemberCommand = new RelayCommand(() =>
                 {
                     PartyMembers.Delete(SelectedPartyMember.MemberID);
-                }, () => { return SelectedPartyMember != null; });
+                    SelectedPartyMember = new PartyMember();
+                }, () => { return SelectedPartyMember != null && SelectedPartyMember.LastName != null && SelectedPartyMember?.Age != null && SelectedPartyMember?.PartyID != null; });
 
-                //SelectedParliament = new Parliament();
-                //SelectedParty = new Party();
-                //SelectedPartyMember = new PartyMember();
+                SelectedParliament = new Parliament();
+                SelectedParty = new Party();
+                SelectedPartyMember = new PartyMember();
             }
         }
     }

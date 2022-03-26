@@ -18,21 +18,17 @@
 
                         You have the opportunity to manage inner politics of many nations. That means you have a context consisting of parliaments, parties and party members.<LineBreak/>
                         Each parliament has multiple parties, of which one of them is the ruling party.<LineBreak/>
-                        Each party has an ideology and multiple junior and senior party members.<LineBreak/>
+                        Each party has an ideology and multiple party members.<LineBreak/>
                         Some rules before editing:<LineBreak/><LineBreak/>
 
                         Parliament:<LineBreak/>
-                        - must have a unique name<LineBreak/>
                         - ruling party must be an existing party<LineBreak/>
                         - ruling party can be part of another parliament (if it was forbidden you wouldn't be able to create a parliament at all)<LineBreak/><LineBreak/>
 
                         Party:<LineBreak/>
-                        - must have a unique name<LineBreak/>
-                        - must be part of an existing parliament<LineBreak/>
-                        - ideology must be picked from a fixed pool: Socialist, Conservative, Nationalist (watch out for capital letters)<LineBreak/><LineBreak/>
+                        - must be part of an existing parliament<LineBreak/><LineBreak/>
 
                         Party Member:<LineBreak/>
-                        - must be at least 18 or at most 70 years old<LineBreak/>
                         - must be part of an existing party
                     </TextBlock>
                 </Grid>
@@ -56,7 +52,7 @@
                         <Label Content="Name of Parliament" Background="LightBlue" Padding="10"/>
                         <TextBox Text="{Binding SelectedParliament.ParliamentName}" Padding="10"/>
                         <Label Content="Name of Ruling Party" Background="LightBlue" Padding="10"/>
-                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedParliament.RulingParty}" SelectedValuePath="PartyName" DisplayMemberPath="PartyName" Padding="10"/>
+                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedParliament.RulingParty}" SelectedValuePath="PartyName" DisplayMemberPath="PartyName" Padding="10" Margin="0,0,0,30"/>
                         <Button Content="Create Parliament" Command="{Binding CreateParliamentCommand}" Margin="10" Padding="10"/>
                         <Button Content="Update Parliament" Command="{Binding UpdateParliamentCommand}" Margin="10" Padding="10"/>
                         <Button Content="Delete Parliament" Command="{Binding DeleteParliamentCommand}" Margin="10" Padding="10"/>
@@ -84,7 +80,7 @@
                         <Label Content="Party Ideology" Background="LightBlue" Padding="10"/>
                         <ComboBox ItemsSource="{Binding IdeologyParties}" SelectedValue="{Binding SelectedParty.Ideology}" SelectedValuePath="Ideology" DisplayMemberPath="Ideology" Padding="10"/>
                         <Label Content="ID of Parliament" Background="LightBlue" Padding="10"/>
-                        <ComboBox ItemsSource="{Binding Parliaments}" SelectedValue="{Binding SelectedParty.ParliamentID}" SelectedValuePath="ParliamentID" DisplayMemberPath="ParliamentID" Padding="10"/>
+                        <ComboBox ItemsSource="{Binding Parliaments}" SelectedValue="{Binding SelectedParty.ParliamentID}" SelectedValuePath="ParliamentID" DisplayMemberPath="ParliamentID" Padding="10" Margin="0,0,0,30"/>
                         <Button Content="Create Party" Command="{Binding CreatePartyCommand}" Margin="10" Padding="10"/>
                         <Button Content="Update Party" Command="{Binding UpdatePartyCommand}" Margin="10" Padding="10"/>
                         <Button Content="Delete Party" Command="{Binding DeletePartyCommand}" Margin="10" Padding="10"/>
@@ -110,9 +106,9 @@
                         <Label Content="Last Name of Member" Background="LightBlue" Padding="10"/>
                         <TextBox Text="{Binding SelectedPartyMember.LastName}" Padding="10"/>
                         <Label Content="Age of Member" Background="LightBlue" Padding="10"/>
-                        <TextBox Text="{Binding SelectedPartyMember.Age}" Padding="10"/>
+                        <ComboBox ItemsSource="{Binding MemberAges}" SelectedValue="{Binding SelectedPartyMember.Age}" SelectedValuePath="Age" DisplayMemberPath="Age" Padding="10" ScrollViewer.CanContentScroll="False"/>
                         <Label Content="ID of Party" Background="LightBlue" Padding="10"/>
-                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedPartyMember.PartyID}" SelectedValuePath="PartyID" DisplayMemberPath="PartyID" Padding="10"/>
+                        <ComboBox ItemsSource="{Binding Parties}" SelectedValue="{Binding SelectedPartyMember.PartyID}" SelectedValuePath="PartyID" DisplayMemberPath="PartyID" Padding="10" Margin="0,0,0,30"/>
                         <Button Content="Create Party Member" Command="{Binding CreatePartyMemberCommand}" Margin="10" Padding="10"/>
                         <Button Content="Update Party Member" Command="{Binding UpdatePartyMemberCommand}" Margin="10" Padding="10"/>
                         <Button Content="Delete Party Member" Command="{Binding DeletePartyMemberCommand}" Margin="10" Padding="10"/>

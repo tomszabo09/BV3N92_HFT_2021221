@@ -187,14 +187,6 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void AddNewParty(Party party)
         {
-            foreach (var item in GetAllParties())
-            {
-                if (item.PartyName.Equals(party.PartyName))
-                {
-                    throw new Exception($"A party with the name '{party.PartyName}' already exists!");
-                }
-            }
-
             if (party.ParliamentID < 0)
             {
                 throw new Exception("Invalid Parliament ID!");

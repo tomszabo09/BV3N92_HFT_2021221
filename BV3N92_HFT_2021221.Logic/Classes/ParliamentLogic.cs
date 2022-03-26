@@ -161,14 +161,6 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void AddNewParliament(Parliament parliament)
         {
-            foreach (var item in GetAllParliaments())
-            {
-                if (item.ParliamentName.Equals(parliament.ParliamentName))
-                {
-                    throw new Exception($"A parliament with the name '{parliament.ParliamentName}' already exists!");
-                }
-            }
-
             bool rulingPartyExists = false;
             foreach (var item in partyRepo.GetAll().ToList())
             {

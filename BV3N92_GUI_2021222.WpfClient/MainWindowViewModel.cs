@@ -117,6 +117,7 @@ namespace BV3N92_GUI_2021222.WpfClient
                         ParliamentName = SelectedParliament.ParliamentName,
                         RulingParty = SelectedParliament.RulingParty
                     });
+                    SelectedParliament = new Parliament();
                 }, () => { return SelectedParliament != null; });
 
                 CreatePartyCommand = new RelayCommand(() =>
@@ -127,6 +128,7 @@ namespace BV3N92_GUI_2021222.WpfClient
                         ParliamentID = SelectedParty.ParliamentID,
                         Ideology = SelectedParty.Ideology
                     });
+                    SelectedParty = new Party();
                 }, () => { return SelectedParty != null; });
 
                 CreatePartyMemberCommand = new RelayCommand(() =>
@@ -137,6 +139,7 @@ namespace BV3N92_GUI_2021222.WpfClient
                         LastName = SelectedPartyMember.LastName,
                         PartyID = SelectedPartyMember.PartyID
                     });
+                    SelectedPartyMember = new PartyMember();
                 }, () => { return SelectedPartyMember != null; });
 
                 UpdateParliamentCommand = new RelayCommand(() => { Parliaments.Update(SelectedParliament); },

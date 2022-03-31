@@ -41,8 +41,15 @@ namespace BV3N92_HFT_2021221.Endpoint.Controllers
         [HttpPost]
         public void Post([FromBody] Party value)
         {
-            partyLogic.AddNewParty(value);
-            hub.Clients.All.SendAsync("PartyCreated", value);
+            try
+            {
+                partyLogic.AddNewParty(value);
+                hub.Clients.All.SendAsync("PartyCreated", value);
+            }
+            catch (Exception)
+            {
+                ; //purposely left empty due to phantom items being added to gui listbox without defining foreign key
+            }
         }
 
         // PUT /party

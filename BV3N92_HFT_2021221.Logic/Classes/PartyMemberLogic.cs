@@ -169,11 +169,7 @@ namespace BV3N92_HFT_2021221.Logic
                 }
             }
 
-            if (member.MemberID < 0)
-            {
-                throw new Exception("Invalid Member ID!");
-            }
-            else if (member.LastName.Equals(string.Empty))
+            if (member.LastName.Equals(string.Empty))
             {
                 throw new Exception("Name has to be given!");
             }
@@ -185,7 +181,7 @@ namespace BV3N92_HFT_2021221.Logic
             {
                 throw new Exception("The age pool is between 18 and 70 years!");
             }
-            else if (member.PartyID < 0)
+            else if (member.PartyID <= 0)
             {
                 throw new Exception("Invalid Party ID!");
             }

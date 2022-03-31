@@ -187,7 +187,7 @@ namespace BV3N92_HFT_2021221.Logic
 
         public void AddNewParty(Party party)
         {
-            if (party.ParliamentID < 0)
+            if (party.ParliamentID <= 0)
             {
                 throw new Exception("Invalid Parliament ID!");
             }

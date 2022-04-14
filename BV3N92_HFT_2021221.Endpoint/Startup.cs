@@ -48,6 +48,8 @@ namespace BV3N92_HFT_2021221.Endpoint
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BV3N92_HFT_2021221.Endpoint v1"));
             }
 
+            app.UseCors(x => x.AllowCredentials().AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:63555"));
+
             app.UseRouting();
             app.UseAuthorization();
 

@@ -12,10 +12,9 @@
         <label>Member Name</label>
         <input type="text" id="membername" />
         <label>Member Age</label>
-        <input type="number" id="memberage" />
+        <input type="number" id="memberage" min="18" max="70" />
         <label>Party ID</label>
-        <input type="number" id="partyid" />
-        <p>Note that the age pool is between 18 and 70 years and that there are only 9 parties. Any invalid input value will cause the program to crash!</p>
+        <input type="number" id="partyid" min="1" max="9" />
         <button type="button" onclick="create()">Add Member</button>
     </div>
 
@@ -23,10 +22,9 @@
         <label>Member Name</label>
         <input type="text" id="membernametoupdate" />
         <label>Member Age</label>
-        <input type="number" id="memberagetoupdate" />
+        <input type="number" id="memberagetoupdate" min="18" max="70" />
         <label>Party ID</label>
-        <input type="number" id="partyidtoupdate" />
-        <p>Note that the age pool is between 18 and 70 years and that there are only 9 parties. Any invalid values will cause the program to crash!</p>
+        <input type="number" id="partyidtoupdate" min="1" max="9" />
         <button type="button" onclick="update()">Update Member</button>
     </div>
 

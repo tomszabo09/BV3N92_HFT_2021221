@@ -28,20 +28,37 @@
         <button type="button" onclick="update()">Update Member</button>
     </div>
 
-    
+    <div id="noncrudaction">
+        <button type="button" onclick="avgageperparty()">Average Age per Party</button>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Party ID</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="resultarea"></tbody>
-    </table>
+    <div id="avgageformdiv">
+        <table>
+            <thead>
+                <tr>
+                    <th>Party Name</th>
+                    <th>Average Age</th>
+                </tr>
+            </thead>
+            <tbody id="avgagearea"></tbody>
+        </table>
+        <button type="button" onclick="loadmemberstable()">Back</button>
+    </div>
+
+    <div id="membertablediv">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Party ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="resultarea"></tbody>
+        </table>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>

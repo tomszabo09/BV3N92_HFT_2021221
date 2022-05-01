@@ -2,6 +2,7 @@
 let connection = null;
 
 let memberIDToUpdate = -1;
+let keypairs = [];
 
 getdata();
 setupSignalR();
@@ -49,6 +50,23 @@ async function getdata() {
     });
 }
 
+async function getnoncruddata() {
+    await fetch('http://localhost:41126/stat/avgageofmembersperparty').then(x => x.json()).then(y => {
+        keypairs = y;
+        //console.log(members);
+        avgagedisplay();
+    });
+}
+
+function avgagedisplay() {
+    document.getElementById('avgagearea').innerHTML = "";
+    keypairs.forEach(x => {
+        document.getElementById('avgagearea').innerHTML +=
+            "<tr><td>" + x.key + "</td><td>" + x.value + "</td></tr>";
+        console.log(x.key);
+    });
+}
+
 function display() {
     document.getElementById('resultarea').innerHTML = "";
     members.forEach(x => {
@@ -74,6 +92,22 @@ function showupdate(id) {
     document.getElementById('updateformdiv').style.display = 'flex';
     document.getElementById('formdiv').style.display = 'none';
     memberIDToUpdate = id;
+}
+
+function avgageperparty() {
+    getnoncruddata();
+    document.getElementById('noncrudaction').style.display = 'none';
+    document.getElementById('formdiv').style.display = 'none';
+    document.getElementById('updateformdiv').style.display = 'none';
+    document.getElementById('avgageformdiv').style.display = 'flex';
+    document.getElementById('membertablediv').style.display = 'none';
+}
+
+function loadmemberstable() {
+    document.getElementById('formdiv').style.display = 'flex';
+    document.getElementById('avgageformdiv').style.display = 'none';
+    document.getElementById('noncrudaction').style.display = 'flex';
+    document.getElementById('membertablediv').style.display = 'flex';
 }
 
 function update() {

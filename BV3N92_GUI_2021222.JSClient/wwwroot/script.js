@@ -1,6 +1,8 @@
 ﻿let members = [];
 let connection = null;
 
+let memberIDToUpdate = -1;
+
 getdata();
 setupSignalR();
 
@@ -15,6 +17,10 @@ function setupSignalR() {
     });
 
     connection.on("PartyMemberDeleted", (user, message) => {
+        getdata();
+    });
+
+    connection.on("PartyMemberUpdated", (user, message) => {
         getdata();
     });
 
@@ -48,7 +54,8 @@ function display() {
     members.forEach(x => {
         document.getElementById('resultarea').innerHTML +=
             "<tr><td>" + x.memberID + "</td><td>" + x.lastName + "</td><td>" + x.age + "</td><td>" + x.partyID +
-        "</td><td>" + `<button type="button" onclick="remove(${x.memberID})">Delete</button>` + "</td></tr>";
+            "</td><td>" + `<button type="button" onclick="remove(${x.memberID})">Delete</button>` +
+            `<button type="button" onclick="showupdate(${x.memberID})">Update</button>` + "</td></tr>";
         console.log(x.lastName);
     });
 }
@@ -58,6 +65,29 @@ function remove(id) {
         method: 'delete',
         headers: { 'content-type': 'application/json', },
         body: null}).then(response => response).then(data => { console.log('success:', data); getdata(); }).catch((error) => { console.error('error:', error); });
+}
+
+function showupdate(id) {
+    document.getElementById('membernametoupdate').value = members.find(m => m.memberID == id)['lastName'];
+    document.getElementById('memberagetoupdate').value = members.find(m => m.memberID == id)['age'];
+    document.getElementById('partyidtoupdate').value = members.find(m => m.memberID == id)['partyID'];
+    document.getElementById('updateformdiv').style.display = 'flex';
+    document.getElementById('formdiv').style.display = 'none';
+    memberIDToUpdate = id;
+}
+
+function update() {
+    document.getElementById('updateformdiv').style.display = 'none';
+    document.getElementById('formdiv').style.display = 'flex';
+    let name = document.getElementById('membernametoupdate').value;
+    let age = document.getElementById('memberagetoupdate').value;
+    let partyid = document.getElementById('partyidtoupdate').value;
+
+    fetch('http://localhost:41126/partymember', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify({ memberID: memberIDToUpdate, lastName: name, age: age, partyID: partyid }),
+    }).then(response => response).then(data => { console.log('Success:', data); getdata(); }).catch((error) => { console.error('Error:', error); });
 }
 
 function create() {

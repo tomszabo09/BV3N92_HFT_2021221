@@ -18,11 +18,6 @@ th {
     background-color: lightblue;
 }
 
-p {
-    padding: 10px;
-    font-size: large;
-}
-
 #formdiv {
     display: flex;
     flex-direction: column;

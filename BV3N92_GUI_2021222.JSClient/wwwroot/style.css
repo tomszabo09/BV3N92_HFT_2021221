@@ -1,5 +1,5 @@
 ﻿table {
-    width: 50%;
+    width: 100%;
 }
 
 table, th, td {
@@ -18,8 +18,12 @@ th {
     background-color: lightblue;
 }
 
+p {
+    padding: 10px;
+    font-size: large;
+}
+
 #formdiv {
-    width: 50%;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -36,6 +40,24 @@ th {
     font-size: large;
 }
 
+#updateformdiv {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+#updateformdiv button, input {
+    margin: 10px;
+    padding: 7px;
+}
+
+    #updateformdiv label {
+    padding: 10px;
+    font-weight: bolder;
+    font-size: large;
+}
+
 table button {
     padding: 2px;
+    margin: 5px;
 }
